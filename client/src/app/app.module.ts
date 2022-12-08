@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { CardComponent } from './card/card.component';
 import { DeckComponent } from './deck/deck.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DeckComponent } from './deck/deck.component';
     RegisterComponent,
     MainPageComponent,
     CardComponent,
-    DeckComponent
+    DeckComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
