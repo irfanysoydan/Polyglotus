@@ -9,11 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Card.belongsTo(models.Deck, {
-        foreignKey: {
-          name: "deckId",
-          type: DataTypes.INTEGER,
-          allowNull: false,
-        },
+        foreignKey: "deckId",
       });
       Card.hasOne(models.Card, {
         foreignKey: "meaningId",

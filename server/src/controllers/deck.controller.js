@@ -1,11 +1,11 @@
 const db = require("../models");
 class DeckController {
-  createDeck = async (req, res) => {
+  createDeck = async (req, res, next) => {
     try {
       const data = {
         name: req.body.name,
         status: req.body.status,
-        creatorId: req.body.creatorId,
+        userId: req.body.userId,
       };
 
       const deck = await db.Deck.create(data);
@@ -14,6 +14,5 @@ class DeckController {
       res.status(500).json(error);
     }
   };
-
 }
 module.exports = new DeckController();

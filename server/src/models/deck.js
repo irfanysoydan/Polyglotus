@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Deck.belongsTo(models.User, {
-        foreignKey: "userId",
+        foreignKey: {
+          name: "userId",
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
       });
       Deck.hasMany(models.Card, {
         foreignKey: "deckId",
