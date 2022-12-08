@@ -1,28 +1,42 @@
-const dbConfig = require("../config/databaseConfig.js");
+"use strict";
 
+const fs = require("fs");
+const path = require("path");
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.js")[env];
+const db = {};
 
+let sequelize;
+sequelize = new Sequelize(process.env.NAME, process.env.USER, process.env.PASSWORD, {
+  host: process.env.HOST,
+  port: 3306,
+  dialect: "mysql",
   pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
+    max: 5,
+    min: 2,
+    acquire: 30000,
+    idle: 10000,
   },
 });
 
-const db = {};
+fs.readdirSync(__dirname)
+  .filter((file) => {
+    return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js";
+  })
+  .forEach((file) => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
 
-db.Sequelize = Sequelize;
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
 db.sequelize = sequelize;
-
-db.sequelize.sync({ force: false });
-
-db.users = require("./user.js")(sequelize, Sequelize.DataTypes);
-db.decks = require("./deck.js")(sequelize, Sequelize.DataTypes);
-db.cards = require("./card.js")(sequelize, Sequelize.DataTypes);
+db.Sequelize = Sequelize;
 
 module.exports = db;
