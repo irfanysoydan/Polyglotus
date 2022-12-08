@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { CardComponent } from './card/card.component';
+import { DeckComponent } from './deck/deck.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CardComponent } from './card/card.component';
     LoginComponent,
     RegisterComponent,
     MainPageComponent,
-    CardComponent
+    CardComponent,
+    DeckComponent
   ],
   imports: [
     BrowserModule,
