@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Deck.init(
     {
-      name: { type: DataTypes.STRING, allowNull: false },
+      name: { type: DataTypes.STRING, allowNull: false, unique: true },
       status: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
     {

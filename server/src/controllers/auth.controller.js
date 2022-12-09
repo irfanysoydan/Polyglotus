@@ -30,7 +30,7 @@ class AuthController {
       if (!isPasswordCorrect) return next(createError(404, "Şifreyi yanlış girdiniz"));
 
       const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT);
-      res.cookie("Token", token).status(200).json("Giriş Yapıldı.");
+      res.cookie("access-token", token, { httpOnly: true }).status(200).json("Giriş Yapıldı.");
     } catch (err) {
       next(err);
     }
