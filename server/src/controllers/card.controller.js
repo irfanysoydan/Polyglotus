@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
@@ -33,7 +34,37 @@ class CardController {
 
       res.status(201).json("Cards Created");
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
+    }
+  };
+
+  getCardById = async (req, res, next) => {
+    try {
+      const card = await db.Card.findAll({
+        where: {
+          [Op.or]: {
+            id: {
+              [Op.like]: req.params.id,
+            },
+            meaningId: {
+              [Op.like]: req.params.id,
+            },
+          },
+        },
+      });
+      console.log(card);
+      res.status(200).json(card);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  deleteCardById = async (req, res, next) => {
+    try {
+      await db.Card.destroy({ where: { id: req.params.id } });
+      res.status(200).json("Card deleted");
+    } catch (error) {
+      next(error);
     }
   };
 }

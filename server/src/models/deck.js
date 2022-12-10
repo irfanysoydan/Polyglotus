@@ -9,14 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Deck.belongsTo(models.User, {
-        foreignKey: {
-          name: "userId",
-          type: DataTypes.INTEGER,
-          allowNull: false,
-        },
+        foreignKey: { name: "userId", allowNull: false },
+        onDelete: "cascade",
       });
       Deck.hasMany(models.Card, {
         foreignKey: "deckId",
+        onDelete: "cascade",
       });
     }
   }
