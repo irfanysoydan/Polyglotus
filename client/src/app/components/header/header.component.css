@@ -1,0 +1,22 @@
+header {
+  width: 100%;
+  height: 80px;
+  box-shadow: rgba(149, 157, 165, 0.2) 8px 8px 24px;
+  display: flex;
+  align-items: center;
+}
+header .g-width-80 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .g-width-80 .profile-section {
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .g-width-80 .profile-section img {
+  width: 48px;
+  height: 48px;
+}/*# sourceMappingURL=header.component.css.map */

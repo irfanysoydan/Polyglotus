@@ -8,14 +8,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Card.belongsTo(models.Deck, {
-        foreignKey: "deckId",
-      });
-      Card.hasOne(models.Card, {
-        foreignKey: "meaningId",
-      });
+      Card.hasOne(models.Card, { foreignKey: "meaningId", onDelete: "cascade" });
+
       Card.belongsTo(models.Card, {
-        foreignKey: "meaningId",
+        as: "Meaning",
+
+        foreignKey: { name: "meaningId", allowNull: true },
+        onDelete: "cascade",
+      });
+
+      Card.belongsTo(models.Deck, {
+        foreignKey: { name: "deckId", allowNull: false },
+        onDelete: "cascade",
       });
     }
   }
