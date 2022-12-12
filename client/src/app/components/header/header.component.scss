@@ -1,0 +1,13 @@
+header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  .logo {
+    width: fit-content;
+  }
+  .profile-section {
+    display: flex;
+    justify-content: space-around;
+  }
+}
