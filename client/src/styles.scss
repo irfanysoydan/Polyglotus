@@ -1,2 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
 @import "variables";
+*,
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: "Montserrat";
+  transition: all 0.5s ease;
+}
+
+body {
+  width: 80%;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 400;
+  color: $black_p;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 26px;
+}
+h3 {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+p {
+  font-size: 18px;
+}
+a:visited,
+a:hover {
+  color: inherit;
+}
+
+button {
+  border: unset;
+  background: initial;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: $blue_p;
+  border: 1px solid $blue_p;
+  color: white;
+  padding: 10px 15px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+button:hover {
+  border: 1px solid $blue_p;
+  background-color: white;
+  color: $blue_p;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  height: 40px;
+  padding: 12px 15px;
+  margin: 8px 0;
+
+  border-style: unset;
+  box-shadow: rgba(149, 157, 165, 0.397) 0px 0px 3px;
+  border-radius: 10px;
+  border-color: unset;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+.g-box-container {
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 8px 8px 24px;
+  // box-shadow: 1px 6px 6px 0px $shadow_p;
+  border-radius: 18px;
+}
+.logo {
+  font-size: 30px;
+  font-weight: 900;
+  color: $blue_p;
+}

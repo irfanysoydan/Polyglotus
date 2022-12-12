@@ -3,11 +3,7 @@ header {
   height: 80px;
   display: flex;
   justify-content: space-between;
-}
-header .logo {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  align-items: center;
 }
 header .profile-section {
   display: flex;

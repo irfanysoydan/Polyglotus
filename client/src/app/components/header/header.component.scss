@@ -3,9 +3,7 @@ header {
   height: 80px;
   display: flex;
   justify-content: space-between;
-  .logo {
-    width: fit-content;
-  }
+  align-items: center;
   .profile-section {
     display: flex;
     justify-content: space-around;
