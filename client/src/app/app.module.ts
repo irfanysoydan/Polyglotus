@@ -10,6 +10,7 @@ import { CardComponent } from './components/card/card.component';
 import { DeckComponent } from './components/deck/deck.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HeaderComponent } from './components/header/header.component';
     CardComponent,
     DeckComponent,
     AdminComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
