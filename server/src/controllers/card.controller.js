@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
@@ -7,13 +6,13 @@ class CardController {
         word: req.body.front.word,
         description: req.body.front.description,
         status: req.body.front.status,
-        deckId: req.body.front.deckId,
+        deckId: req.body.deckId,
       };
       const back = {
         word: req.body.back.word,
         description: req.body.back.description,
         status: req.body.back.status,
-        deckId: req.body.back.deckId,
+        deckId: req.body.deckId,
       };
 
       const cardFront = await db.Card.create(front);
@@ -32,7 +31,7 @@ class CardController {
         }
       );
 
-      res.status(201).json("Cards Created");
+      res.status(201).json("Kart Oluşturuldu");
     } catch (error) {
       next(error);
     }
@@ -40,17 +39,11 @@ class CardController {
 
   getCardById = async (req, res, next) => {
     try {
-      const card = await db.Card.findAll({
+      const card = await db.Card.findOne({
         where: {
-          [Op.or]: {
-            id: {
-              [Op.like]: req.params.id,
-            },
-            meaningId: {
-              [Op.like]: req.params.id,
-            },
-          },
+          id: req.params.id,
         },
+        include: [{ as: "Meaning", model: db.Card }],
       });
       console.log(card);
       res.status(200).json(card);
@@ -59,10 +52,23 @@ class CardController {
     }
   };
 
+  getAllCardsByDeckId = async (req, res, next) => {
+    try {
+      const cards = await db.Card.findAll({
+        where: {
+          deckId: req.params.deckId,
+        },
+      });
+      res.status(200).json(cards);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   deleteCardById = async (req, res, next) => {
     try {
       await db.Card.destroy({ where: { id: req.params.id } });
-      res.status(200).json("Card deleted");
+      res.status(200).json("Kart destedenn silindi.");
     } catch (error) {
       next(error);
     }

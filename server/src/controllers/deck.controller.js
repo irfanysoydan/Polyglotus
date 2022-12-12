@@ -1,11 +1,11 @@
+const createError = require("http-errors");
 const db = require("../models");
 class DeckController {
   createDeck = async (req, res, next) => {
     try {
       const data = {
         name: req.body.name,
-        status: req.body.status,
-        userId: req.body.userId,
+        userId: req.user.id,
       };
 
       const deck = await db.Deck.create(data);
@@ -15,17 +15,18 @@ class DeckController {
     }
   };
 
-  getDeckByName = async (req, res, next) => {
+  getDeckById = async (req, res, next) => {
     try {
       const deck = await db.Deck.findOne({
         where: {
-          name: req.params.name,
+          id: req.params.id,
+          userId: req.user.id,
         },
         include: {
           model: db.Card,
         },
       });
-      console.log(deck);
+      if (!deck) return next(createError(404, "Bu isimde bir deste bulunamadı."));
       res.status(200).json(deck);
     } catch (error) {
       next(error);
@@ -35,11 +36,8 @@ class DeckController {
   getAllDecks = async (req, res, next) => {
     try {
       const decks = await db.Deck.findAll({
-        include: {
-          model: db.Card,
-        },
+        where: { userId: req.user.id },
       });
-      console.log(decks);
       res.status(200).json(decks);
     } catch (error) {
       next(error);
@@ -48,8 +46,10 @@ class DeckController {
 
   deleteDeck = async (req, res, next) => {
     try {
-      await db.Deck.destroy({ where: { name: req.params.name } });
-      res.status(200).json("Name deleted");
+      const state = await db.Deck.destroy({ where: { id: req.params.id, userId: req.user.id } });
+      if (!state) return next(createError(404, "Bu isimde bir deste bulunamadı."));
+
+      res.status(200).json("Deste Silindi");
     } catch (error) {
       next(error);
     }

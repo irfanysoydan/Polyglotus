@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       Card.hasOne(models.Card, { foreignKey: "meaningId", onDelete: "cascade" });
 
       Card.belongsTo(models.Card, {
+        as: "Meaning",
+
         foreignKey: { name: "meaningId", allowNull: true },
         onDelete: "cascade",
       });
