@@ -1,0 +1,49 @@
+.home {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.home .create-deck {
+  width: 100%;
+  display: flex;
+  align-content: center;
+}
+.home .create-deck input[type=text] {
+  margin-right: 5%;
+}
+.home .create-deck button {
+  width: 20%;
+}
+.home .list-deck {
+  width: 100%;
+  margin: 126px auto;
+  display: flex;
+  align-items: flex-start;
+  align-content: center;
+  flex-wrap: wrap;
+  -moz-column-gap: 70px;
+       column-gap: 70px;
+  row-gap: 70px;
+}
+.home .list-deck .deck {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+.home .list-deck .deck .deck-head {
+  margin-top: 30px;
+  color: #6796e6;
+}
+.home .list-deck .deck .deck-body {
+  margin-top: 20%;
+}
+.home .list-deck .deck .deck-body p:last-child {
+  margin-top: 10px;
+}/*# sourceMappingURL=home.component.css.map */
