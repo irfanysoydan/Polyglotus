@@ -15,7 +15,7 @@ body {
   margin: auto;
   font-size: 20px;
   font-weight: 400;
-  color: $black_p;
+  color: $gray_p;
 }
 
 h1 {
@@ -27,7 +27,7 @@ h2 {
   font-size: 26px;
 }
 h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
 }
 
@@ -40,20 +40,20 @@ a:hover {
 }
 
 button {
+  width: 100%;
   border: unset;
   background: initial;
   cursor: pointer;
   border-radius: 10px;
-  background-color: $blue_p;
-  border: 1px solid $blue_p;
-  color: white;
+  background-color: white;
+  color: $gray_p;
   padding: 10px 15px;
   font-weight: 500;
   font-size: 18px;
+  box-shadow: rgba(149, 157, 165, 0.2) 8px 8px 24px;
 }
 
 button:hover {
-  border: 1px solid $blue_p;
   background-color: white;
   color: $blue_p;
 }
