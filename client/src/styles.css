@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  width: 80%;
+  width: 100%;
   margin: auto;
   font-size: 20px;
   font-weight: 400;
@@ -81,6 +81,11 @@ textarea:focus {
   background-color: white;
   box-shadow: rgba(149, 157, 165, 0.2) 8px 8px 24px;
   border-radius: 18px;
+}
+
+.g-width-80 {
+  width: 80%;
+  margin: auto;
 }
 
 .logo {
