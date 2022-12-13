@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
+import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,6 @@ const routes: Routes = [
     path: 'main',
     component: MainPageComponent,
   },
-
   {
     path: 'login',
     component: LoginComponent,
@@ -35,7 +35,10 @@ const routes: Routes = [
     path: 'deck',
     component: DeckComponent,
   },
-
+  {
+    path: 'work-deck',
+    component: WorkDeckComponent,
+  },
   {
     path: 'card',
     component: CardComponent,

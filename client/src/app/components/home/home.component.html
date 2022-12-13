@@ -6,7 +6,11 @@
   </div>
   <div class="list-deck">
     <div *ngFor="let deck of decks; index as i" class="g-box-container deck">
-      <div [routerLink]="'deck'" [state]="{ deck: deck }" class="container">
+      <div
+        [routerLink]="'work-deck'"
+        [state]="{ deck: deck }"
+        class="container"
+      >
         <div class="deck-head">
           <h3>{{ deck.name }}</h3>
         </div>
@@ -17,7 +21,7 @@
       </div>
       <div class="deck-footer">
         <button class="deck-delete">Sil</button>
-        <button>Çalış</button>
+        <button [routerLink]="'deck'" [state]="{ deck: deck }">Detaylar</button>
       </div>
     </div>
   </div>

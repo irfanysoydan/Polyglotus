@@ -1,0 +1,36 @@
+@import "../../../variables";
+.work-deck {
+  width: 350px;
+  margin: 150px auto;
+  .g-box-container {
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3 {
+      margin-top: 75px;
+    }
+    p {
+      text-align: center;
+      margin-top: 50px;
+      padding: 0 50px;
+    }
+  }
+  button {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    background-color: rgb(40, 235, 137);
+    color: white;
+  }
+  .answers {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    button {
+      width: 45%;
+    }
+    .incorret {
+      background-color: $red;
+    }
+  }
+}
