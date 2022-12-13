@@ -11,6 +11,9 @@ header .g-width-80 {
   justify-content: space-between;
   align-items: center;
 }
+header .g-width-80 .logo {
+  cursor: pointer;
+}
 header .g-width-80 .profile-section {
   width: 15%;
   display: flex;
