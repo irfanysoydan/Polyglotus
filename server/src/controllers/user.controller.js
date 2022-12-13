@@ -1,3 +1,4 @@
+const GetUserDto = require("../dtos/user/GetUser.dto");
 const db = require("../models");
 class UserController {
   getUserById = async (req, res, next) => {
@@ -6,9 +7,11 @@ class UserController {
     try {
       const user = await db.User.findOne({
         where: { id: id },
+        include: {
+          model: db.Deck,
+        },
       });
-      console.log(user);
-      res.status(200).json(user);
+      res.status(200).json(new GetUserDto(user));
     } catch (error) {
       res.status(500).json(error);
     }
