@@ -35,23 +35,30 @@
       justify-content: space-between;
       align-content: center;
       align-items: center;
-      .deck-head {
-        margin-top: 30px;
-        color: $blue_p;
-      }
-      .deck-body {
-        p:last-child {
-          margin-top: 10px;
+      .container {
+        cursor: pointer;
+        .deck-head {
+          margin-top: 30px;
+          color: $blue_p;
+        }
+        .deck-body {
+          margin-top: 50px;
+          p:last-child {
+            margin-top: 10px;
+          }
         }
       }
-    }
-    .deck-footer {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      button {
-        width: 45%;
-        box-shadow: unset;
+      .deck-footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        button {
+          width: 45%;
+          box-shadow: unset;
+        }
+        .deck-delete {
+          color: $red;
+        }
       }
     }
   }

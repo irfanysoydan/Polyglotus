@@ -8,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class DeckComponent implements OnInit {
 
   constructor() { }
-
+  deckInfo: any;
   ngOnInit(): void {
+    this.deckInfo = history.state.deck;
   }
 
 }

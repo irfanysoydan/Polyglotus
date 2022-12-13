@@ -1,19 +1,22 @@
+<!-- <button [routerLink]="'deck'" [state]="{ data: { tst: 1 } }"></button> -->
 <div class="home">
   <div class="create-deck">
     <input type="text" placeholder="Deste Adı" />
     <button>Deste Oluştur</button>
   </div>
   <div class="list-deck">
-    <div class="g-box-container deck">
-      <div class="deck-head">
-        <h3>English -Turkish</h3>
-      </div>
-      <div class="deck-body">
-        <p>12 Kart içeriyor</p>
-        <p>50% Tamamlandı</p>
+    <div *ngFor="let deck of decks; index as i" class="g-box-container deck">
+      <div [routerLink]="'deck'" [state]="{ deck: deck }" class="container">
+        <div class="deck-head">
+          <h3>{{ deck.name }}</h3>
+        </div>
+        <div class="deck-body">
+          <p>{{ deck.cardCount }} Kart içeriyor</p>
+          <p>{{ deck.complatePercentage }}% Tamamlandı</p>
+        </div>
       </div>
       <div class="deck-footer">
-        <button routerLink="deck">Detaylar</button>
+        <button class="deck-delete">Sil</button>
         <button>Çalış</button>
       </div>
     </div>
