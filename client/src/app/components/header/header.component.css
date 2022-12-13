@@ -4,6 +4,7 @@ header {
   box-shadow: rgba(149, 157, 165, 0.2) 8px 8px 24px;
   display: flex;
   align-items: center;
+  margin-bottom: 80px;
 }
 header .g-width-80 {
   display: flex;

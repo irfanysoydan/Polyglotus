@@ -1,0 +1,50 @@
+@import "../../../variables";
+.home {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .create-deck {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    input[type="text"] {
+      margin-right: 5%;
+    }
+    button {
+      width: 20%;
+    }
+  }
+  .list-deck {
+    width: 100%;
+    margin: 126px auto;
+    display: flex;
+    align-items: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    column-gap: 70px;
+    row-gap: 70px;
+    .deck {
+      width: 250px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      .deck-head {
+        margin-top: 30px;
+        color: $blue_p;
+      }
+      .deck-body {
+        margin-top: 20%;
+        p:last-child {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
