@@ -11,6 +11,8 @@ import { DeckComponent } from './components/deck/deck.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,11 @@ import { FooterComponent } from './components/footer/footer.component';
     DeckComponent,
     AdminComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    NotFoundComponent,
+    CardComponent,
+    DeckComponent
   ],
   imports: [
     BrowserModule,
