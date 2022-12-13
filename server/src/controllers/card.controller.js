@@ -1,19 +1,21 @@
+const CreateCardDto = require("../dtos/card/CreateCard.dto");
+const GetCardDto = require("../dtos/card/GetCard.dto");
 const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
     try {
-      const front = {
+      const front = new CreateCardDto({
         word: req.body.front.word,
         description: req.body.front.description,
         status: req.body.front.status,
         deckId: req.body.deckId,
-      };
-      const back = {
+      });
+      const back = new CreateCardDto({
         word: req.body.back.word,
         description: req.body.back.description,
         status: req.body.back.status,
         deckId: req.body.deckId,
-      };
+      });
 
       const cardFront = await db.Card.create(front);
       const cardBack = await db.Card.create(back);
@@ -45,8 +47,7 @@ class CardController {
         },
         include: [{ as: "Meaning", model: db.Card }],
       });
-      console.log(card);
-      res.status(200).json(card);
+      res.status(200).json(new GetCardDto(card));
     } catch (error) {
       next(error);
     }

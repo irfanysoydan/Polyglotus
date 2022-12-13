@@ -1,12 +1,14 @@
 const createError = require("http-errors");
+const CreateDeckDto = require("../dtos/deck/CreateDeck.dto");
+const GetDeckDto = require("../dtos/deck/GetDeck.dto");
 const db = require("../models");
 class DeckController {
   createDeck = async (req, res, next) => {
     try {
-      const data = {
+      const data = new CreateDeckDto({
         name: req.body.name,
         userId: req.user.id,
-      };
+      });
 
       const deck = await db.Deck.create(data);
       res.status(201).json(deck);
@@ -24,10 +26,14 @@ class DeckController {
         },
         include: {
           model: db.Card,
+          include: {
+            as: "Meaning",
+            model: db.Card,
+          },
         },
       });
       if (!deck) return next(createError(404, "Bu isimde bir deste bulunamadı."));
-      res.status(200).json(deck);
+      res.status(200).json(new GetDeckDto(deck));
     } catch (error) {
       next(error);
     }

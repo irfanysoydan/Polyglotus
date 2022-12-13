@@ -2,6 +2,7 @@ const db = require("../models");
 const bcrypt = require("bcryptjs");
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
+const CreateUserDto = require("../dtos/user/CreateUser.dto");
 
 class AuthController {
   createUser = async (req, res, next) => {
@@ -9,11 +10,11 @@ class AuthController {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     try {
-      const info = {
+      const info = new CreateUserDto({
         fullName: req.body.fullName,
         email: req.body.email,
         password: hash,
-      };
+      });
 
       const user = await db.User.create(info);
       res.status(201).json(user.fullName + " isimli kullanıcı oluşturuldu.");
@@ -29,7 +30,7 @@ class AuthController {
       const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
       if (!isPasswordCorrect) return next(createError(404, "Şifreyi yanlış girdiniz"));
 
-      const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: "10s" });
+      const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: "1000s" });
       res.cookie("access-token", token, { httpOnly: true }).status(200).json("Giriş Yapıldı.");
     } catch (err) {
       next(err);
