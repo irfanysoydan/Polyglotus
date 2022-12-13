@@ -1,7 +1,7 @@
 export class Deck {
-    id?:string;
-    Name?: string;
-    status?: boolean;
-    userId?: string;       
-    
-  }
+  id?: number;
+  Name?: string;
+  status?: boolean;
+  userId?: number;
+
+}

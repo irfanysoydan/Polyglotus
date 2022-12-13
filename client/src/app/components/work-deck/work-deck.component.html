@@ -1,0 +1,17 @@
+<div class="work-deck">
+  <div class="g-box-container" *ngIf="showCard">
+    <h3>{{ selectedCardFront.word }}</h3>
+    <p>{{ selectedCardFront.description }}</p>
+  </div>
+  <div class="g-box-container" *ngIf="!showCard">
+    <h3>{{ selectedCardBack.word }}</h3>
+    <p>{{ selectedCardBack.description }}</p>
+  </div>
+  <button (click)="this.showCard = false" *ngIf="showCard">
+    Cevabı Göster
+  </button>
+  <div class="answers" *ngIf="!showCard">
+    <button class="incorret" (click)="nextCard(false)">Zor</button>
+    <button class="corret" (click)="nextCard(true)">Kolay</button>
+  </div>
+</div>
