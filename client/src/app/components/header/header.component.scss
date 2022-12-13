@@ -9,6 +9,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .logo {
+      cursor: pointer;
+    }
     .profile-section {
       width: 15%;
       display: flex;

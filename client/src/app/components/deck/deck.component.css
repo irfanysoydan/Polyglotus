@@ -1,0 +1,65 @@
+.deck-detail {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.deck-detail .update-deck {
+  width: 100%;
+  display: flex;
+  align-content: center;
+}
+.deck-detail .update-deck input[type=text] {
+  margin-right: 5%;
+}
+.deck-detail .update-deck button {
+  width: 20%;
+}
+.deck-detail .deck-title {
+  width: 100%;
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+.deck-detail .deck-title button {
+  width: 10%;
+}
+.deck-detail .deck-title h4 {
+  font-weight: 600;
+}
+.deck-detail .card-list {
+  width: 100%;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.deck-detail .card-list .g-box-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deck-detail .card-list .g-box-container p.status.red {
+  color: #ff0000;
+}
+.deck-detail .card-list .g-box-container p.status.green {
+  color: #00ff2b;
+}
+.deck-detail .card-list .g-box-container p {
+  margin-left: 30px;
+}
+.deck-detail .card-list .g-box-container button {
+  border: 2px;
+  border-color: aqua;
+  box-shadow: unset;
+  width: 10%;
+  color: #ff0000;
+}
+.deck-detail .card-list .g-box-container button:hover {
+  background-color: hsla(0deg, 100%, 50%, 0.3);
+  color: white;
+}/*# sourceMappingURL=deck.component.css.map */

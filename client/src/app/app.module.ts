@@ -27,8 +27,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
-    CardComponent,
-    DeckComponent
   ],
   imports: [
     BrowserModule,
