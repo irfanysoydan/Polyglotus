@@ -16,6 +16,12 @@ export class HomeComponent implements OnInit {
     { deckId: 5, name: "Test Deck 5", cardCount: 8, complatePercentage: 75 }]
   ngOnInit(): void {
   }
+  deckId: number = 6;
+  AddDeck(deckName: string) {
+    this.decks.push({
+      deckId: this.deckId, name: deckName, cardCount: 0, complatePercentage: 0
+    });
+    this.deckId++;
 
-
+  }
 }
