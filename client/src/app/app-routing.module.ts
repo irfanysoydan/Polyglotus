@@ -4,6 +4,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { CardComponent } from './components/card/card.component';
 import { CreateCardComponent } from './components/create-card/create-card.component';
 import { DeckComponent } from './components/deck/deck.component';
+import { ForgotPassswordComponent } from './components/forgot-passsword/forgot-passsword.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPassswordComponent
   },
   {
     path: 'admin',

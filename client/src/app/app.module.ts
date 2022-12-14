@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 import { CreateCardComponent } from './components/create-card/create-card.component';
+import { ForgotPassswordComponent } from './components/forgot-passsword/forgot-passsword.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CreateCardComponent } from './components/create-card/create-card.compon
     NotFoundComponent,
     WorkDeckComponent,
     CreateCardComponent,
+    ForgotPassswordComponent,
   ],
   imports: [
     BrowserModule,
