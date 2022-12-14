@@ -1,0 +1,32 @@
+.forgot-password {
+  width: 100%;
+  display: flex;
+}
+.forgot-password .g-box-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 100px auto;
+  width: 350px;
+  padding-bottom: 15px;
+}
+.forgot-password .g-box-container h2 {
+  margin-top: 30px;
+  text-align: center;
+}
+.forgot-password .g-box-container .inputs {
+  margin: 80px 30px 50px 30px;
+}
+.forgot-password .g-box-container button {
+  box-shadow: none;
+  background-color: #6796e6;
+  color: white;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.forgot-password .g-box-container p {
+  margin: auto;
+  margin-bottom: 5px;
+  font-size: medium;
+}/*# sourceMappingURL=forgot-passsword.component.css.map */
