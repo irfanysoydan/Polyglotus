@@ -5,10 +5,8 @@ const db = require("../models");
 class DeckController {
   createDeck = async (req, res, next) => {
     try {
-      const data = new CreateDeckDto({
-        name: req.body.name,
-        userId: req.user.id,
-      });
+      const data = new CreateDeckDto(req.body);
+      data.userId = req.user.id;
 
       const deck = await db.Deck.create(data);
       res.status(201).json(deck);
@@ -44,6 +42,7 @@ class DeckController {
       const decks = await db.Deck.findAll({
         where: { userId: req.user.id },
       });
+      if (decks.length === 0) return next(createError(404, "Sisteme kayıtlı deste bulunamadı."));
       res.status(200).json(decks);
     } catch (error) {
       next(error);

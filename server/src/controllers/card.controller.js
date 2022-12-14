@@ -4,18 +4,10 @@ const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
     try {
-      const front = new CreateCardDto({
-        word: req.body.front.word,
-        description: req.body.front.description,
-        status: req.body.front.status,
-        deckId: req.body.deckId,
-      });
-      const back = new CreateCardDto({
-        word: req.body.back.word,
-        description: req.body.back.description,
-        status: req.body.back.status,
-        deckId: req.body.deckId,
-      });
+      const front = new CreateCardDto(req.body.front);
+      const back = new CreateCardDto(req.body.back);
+      front.deckId = req.body.deckId;
+      back.deckId = req.body.deckId;
 
       const cardFront = await db.Card.create(front);
       const cardBack = await db.Card.create(back);

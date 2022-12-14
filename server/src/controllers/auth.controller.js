@@ -10,11 +10,8 @@ class AuthController {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     try {
-      const info = new CreateUserDto({
-        fullName: req.body.fullName,
-        email: req.body.email,
-        password: hash,
-      });
+      req.body.password=hash;
+      const info = new CreateUserDto(req.body);
 
       const user = await db.User.create(info);
       res.status(201).json(user.fullName + " isimli kullanıcı oluşturuldu.");
