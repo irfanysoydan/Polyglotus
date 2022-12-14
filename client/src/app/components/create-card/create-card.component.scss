@@ -1,0 +1,41 @@
+@import "../../../variables";
+.create-card {
+  width: 100%;
+  margin: 150px auto;
+  display: flex;
+  justify-content: space-around;
+  .upcontainer {
+    display: flex;
+    flex-direction: column;
+    .container {
+      margin-bottom: 80px;
+    }
+    button {
+      margin-top: -35px;
+    }
+  }
+  .container {
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .g-box-container {
+      width: 350px;
+      height: 450px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      h3 {
+        margin-top: 75px;
+      }
+      p {
+        max-width: 350px;
+        text-align: center;
+        margin-top: 50px;
+        padding: 0 50px;
+        word-wrap: break-word;
+      }
+    }
+  }
+}

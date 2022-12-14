@@ -1,0 +1,35 @@
+.work-deck {
+  width: 350px;
+  margin: 150px auto;
+}
+.work-deck .g-box-container {
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.work-deck .g-box-container h3 {
+  margin-top: 75px;
+}
+.work-deck .g-box-container p {
+  text-align: center;
+  margin-top: 50px;
+  padding: 0 50px;
+}
+.work-deck button {
+  margin-top: 15px;
+  margin-bottom: 25px;
+  background-color: rgb(40, 235, 137);
+  color: white;
+}
+.work-deck .answers {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.work-deck .answers button {
+  width: 45%;
+}
+.work-deck .answers .incorret {
+  background-color: #ff0000;
+}/*# sourceMappingURL=work-deck.component.css.map */
