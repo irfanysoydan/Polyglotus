@@ -1,7 +1,7 @@
 <header>
   <div class="g-width-80">
     <div class="logo" routerLink="/">Polyglouts</div>
-    <div class="profile-section">
+    <div class="profile-section" *ngIf="isLogin">
       <div class="profile-fullname">{{ fullname }}</div>
       <div class="profile-picture">
         <img
@@ -10,6 +10,10 @@
           srcset=""
         />
       </div>
+    </div>
+    <div class="login" *ngIf="!isLogin">
+      <button routerLink="login">Giriş Yap</button>
+      <button routerLink="register">Kayıt Ol</button>
     </div>
   </div>
 </header>

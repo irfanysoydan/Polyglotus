@@ -8,14 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(  private authService: AuthService ) { }
-  
-  fullname: string = "Ömer Uzumaki";
-  
+  constructor() { }
+  fullname: string = "Ömer Özoğlu";
+  isLogin: boolean = false;
   ngOnInit(): void {
-
-    
   }
-
 }

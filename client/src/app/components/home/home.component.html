@@ -1,11 +1,11 @@
 <!-- <button [routerLink]="'deck'" [state]="{ data: { tst: 1 } }"></button> -->
 <div class="home">
   <div class="create-deck">
-    <input type="text" placeholder="Deste Adı" />
-    <button>Deste Oluştur</button>
+    <input type="text" placeholder="Deste Adı" #deckname />
+    <button (click)="AddDeck(deckname.value)">Deste Oluştur</button>
   </div>
   <div class="list-deck">
-    <div *ngFor="let deck of decks; index as i" class="g-box-container deck">
+    <div *ngFor="let deck of decks" class="g-box-container deck">
       <div
         [routerLink]="'work-deck'"
         [state]="{ deck: deck }"

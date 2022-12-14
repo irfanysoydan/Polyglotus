@@ -1,0 +1,33 @@
+@import "../../../variables";
+.login {
+  width: 100%;
+  display: flex;
+  .g-box-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 100px auto;
+    width: 350px;
+    padding-bottom: 15px;
+    h2 {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .inputs {
+      margin: 80px 30px 50px 30px;
+    }
+    button {
+      box-shadow: none;
+      background-color: $blue_p;
+      color: white;
+      width: 60%;
+      margin: auto;
+      margin-bottom: 20px;
+    }
+    p {
+      margin: auto;
+      margin-bottom: 5px;
+      font-size: medium;
+    }
+  }
+}
