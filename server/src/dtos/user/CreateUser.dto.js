@@ -1,8 +1,8 @@
 class CreateUserDto {
-  constructor(user) {
-    this.email = user.email;
-    this.fullName = user.fullName;
-    this.password = user.password;
+  constructor(data) {
+    this.email = data.email;
+    this.fullName = data.fullName;
+    this.password = data.password;
   }
 }
 

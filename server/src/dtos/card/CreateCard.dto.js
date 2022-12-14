@@ -3,7 +3,7 @@ class CreateCardDto {
     this.word = card.word;
     this.description = card.description;
     this.status = card.status;
-    this.deckId = card.deckId;
+    this.deckId = null;
   }
 }
 

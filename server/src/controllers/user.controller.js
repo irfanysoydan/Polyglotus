@@ -1,5 +1,7 @@
 const GetUserDto = require("../dtos/user/GetUser.dto");
 const db = require("../models");
+const bcrypt = require("bcryptjs");
+
 class UserController {
   getUserById = async (req, res, next) => {
     const id = req.params.id;
@@ -32,8 +34,14 @@ class UserController {
   };
 
   updateUser = async (req, res, next) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+
     try {
-      await db.User.update({ fullName: req.body.fullName, email: req.body.email, password: req.body.password }, { where: { id: req.params.id } });
+      await db.User.update(
+        { fullName: req.body.fullName, email: req.body.email, password: hash, isAdmin: req.body.isAdmin },
+        { where: { id: req.params.id } }
+      );
       res.status(200).json("User updated");
     } catch (error) {
       next(error);
