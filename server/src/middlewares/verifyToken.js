@@ -3,7 +3,8 @@ const db = require("../models");
 const createError = require("http-errors");
 
 const verifyToken = (req, res, next) => {
-  const token = req.cookies["access-token"];
+  console.log(req.headers.authorization);
+  const token = req.headers.authorization.split(' ')[1];
 
   if (!token) res.status(500).json("Bu işlem için erişim iznin yok");
 
