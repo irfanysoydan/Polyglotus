@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
 import { CardComponent } from './components/card/card.component';
+import { CreateCardComponent } from './components/create-card/create-card.component';
 import { DeckComponent } from './components/deck/deck.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'card',
     component: CardComponent,
+  },
+  {
+    path: 'deck/create-card',
+    component: CreateCardComponent,
   },
   {
     path: '**',

@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { WorkDeckComponent } from './components/work-deck/work-deck.component';
+import { CreateCardComponent } from './components/create-card/create-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { WorkDeckComponent } from './components/work-deck/work-deck.component';
     HomeComponent,
     NotFoundComponent,
     WorkDeckComponent,
+    CreateCardComponent,
   ],
   imports: [
     BrowserModule,

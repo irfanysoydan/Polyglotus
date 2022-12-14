@@ -1,0 +1,38 @@
+.create-card {
+  width: 100%;
+  margin: 150px auto;
+  display: flex;
+  justify-content: space-around;
+}
+.create-card .upcontainer {
+  display: flex;
+  flex-direction: column;
+}
+.create-card .upcontainer .container {
+  margin-bottom: 80px;
+}
+.create-card .upcontainer button {
+  margin-top: -35px;
+}
+.create-card .container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.create-card .container .g-box-container {
+  width: 350px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.create-card .container .g-box-container h3 {
+  margin-top: 75px;
+}
+.create-card .container .g-box-container p {
+  max-width: 350px;
+  text-align: center;
+  margin-top: 50px;
+  padding: 0 50px;
+  word-wrap: break-word;
+}/*# sourceMappingURL=create-card.component.css.map */

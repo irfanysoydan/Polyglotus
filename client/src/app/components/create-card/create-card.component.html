@@ -1,0 +1,56 @@
+<div class="create-card">
+  <div class="upcontainer">
+    <div class="container">
+      <h2>Ön Yüz</h2>
+      <div class="inputs">
+        <input
+          type="text"
+          placeholder="Kelime"
+          name="word"
+          #newword
+          (keyup)="word = this.newword.value"
+        />
+        <input
+          type="text"
+          placeholder="Açıklama"
+          #newdescription
+          (keyup)="description = this.newdescription.value"
+        />
+      </div>
+    </div>
+    <div class="container">
+      <h2>Arka Yüz</h2>
+      <div class="inputs">
+        <input
+          type="text"
+          placeholder="Kelime"
+          name="word"
+          #newanswer
+          (keyup)="answer = this.newanswer.value"
+        />
+        <input
+          type="text"
+          placeholder="Açıklama"
+          #newanswerdescription
+          (keyup)="answerDescription = this.newanswerdescription.value"
+        />
+      </div>
+    </div>
+    <button>Kaydet</button>
+  </div>
+
+  <div class="container">
+    <h2>Ön Yüz</h2>
+    <div class="g-box-container" *ngIf="showCard">
+      <h3>{{ word }}</h3>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+  <div class="container">
+    <h2>Arka Yüz</h2>
+    <div class="g-box-container" *ngIf="showCard">
+      <h3>{{ answer }}</h3>
+      <p>{{ answerDescription }}</p>
+    </div>
+  </div>
+</div>
