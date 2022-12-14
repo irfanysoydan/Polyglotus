@@ -26,12 +26,17 @@ export class DeckService {
   }
 
   getDeckId(id: number): Observable<Deck> {
-    return this.http.get<Deck>(this.decksUrl+ id, httpOptions);
+    return this.http.get<Deck>(this.decksUrl + id, httpOptions);
   }
-  
-createDeck(deck: Deck): Observable<Deck> {
-  return this.http
-  .post<Deck>(this.decksUrl, deck, httpOptions)
-    
-}
+  createDeck(deck: Deck): Observable<Deck> {
+    return this.http.post<Deck>(this.decksUrl, deck, httpOptions);
+  }
+
+  deleteDeck(id: number): Observable<Deck> {
+    //const url = `${this.decksUrl}${id}`; // DELETE api/heroes/42
+    return this.http.delete(this.decksUrl + id, httpOptions);
+      
+  }
+
+
 }
