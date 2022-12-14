@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
 import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPassswordComponent
+  },
+  {
+    path: 'renew-password',
+    component: RenewPasswordComponent
   },
   {
     path: 'admin',
