@@ -17,15 +17,21 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class DeckService {
-  decksUrl = 'http://10.138.133.93:3000';
+  decksUrl = 'http://10.138.133.93:3000/decks/';
 
   constructor(private http: HttpClient) {}
 
   getDecks(): Observable<Deck[]> {
-    return this.http.get<Deck[]>(this.decksUrl + '/decks', httpOptions);
+    return this.http.get<Deck[]>(this.decksUrl, httpOptions);
   }
 
   getDeckId(id: number): Observable<Deck> {
-    return this.http.get<Deck>(this.decksUrl + '/decks/' + id, httpOptions);
+    return this.http.get<Deck>(this.decksUrl+ id, httpOptions);
   }
+  
+createDeck(deck: Deck): Observable<Deck> {
+  return this.http
+  .post<Deck>(this.decksUrl, deck, httpOptions)
+    
+}
 }
