@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NotFoundComponent implements OnInit {
 
-  username: String | undefined;
+  
   
   constructor(
   private authService: AuthService
@@ -18,7 +18,7 @@ export class NotFoundComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.username = this.authService.username;
+    
   }
 
 }
