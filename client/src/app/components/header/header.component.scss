@@ -22,5 +22,15 @@ header {
         height: 48px;
       }
     }
+    .login {
+      width: 15%;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        box-shadow: none;
+        height: 48px;
+      }
+    }
   }
 }
