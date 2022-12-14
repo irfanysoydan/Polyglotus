@@ -23,4 +23,13 @@ header .g-width-80 .profile-section {
 header .g-width-80 .profile-section img {
   width: 48px;
   height: 48px;
+}
+header .g-width-80 .login {
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+}
+header .g-width-80 .login button {
+  box-shadow: none;
+  height: 48px;
 }/*# sourceMappingURL=header.component.css.map */
