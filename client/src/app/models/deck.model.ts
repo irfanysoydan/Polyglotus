@@ -3,6 +3,6 @@ export class Deck {
   name?: string;
   status?: boolean;
   userId?: number;
-  createdAd?:Date;
+  createdAt?:Date;
   updateAt?:Date;
 }
