@@ -1,7 +1,8 @@
 export class Deck {
   id?: number;
-  Name?: string;
+  name?: string;
   status?: boolean;
   userId?: number;
-
+  createdAd?:Date;
+  updateAt?:Date;
 }

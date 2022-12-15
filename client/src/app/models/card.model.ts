@@ -5,4 +5,6 @@ export class Card {
   status?: boolean;
   deckId?: number;
   meaningId?: number;
+  createdAd?:Date;
+  updateAt?:Date;
 }
