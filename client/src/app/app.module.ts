@@ -17,6 +17,7 @@ import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 import { CreateCardComponent } from './components/create-card/create-card.component';
 import { ForgotPassswordComponent } from './components/forgot-passsword/forgot-passsword.component';
 import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
+import { AuthGuard } from './components/auth-guard/auth-guard';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { RenewPasswordComponent } from './components/renew-password/renew-passwo
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
