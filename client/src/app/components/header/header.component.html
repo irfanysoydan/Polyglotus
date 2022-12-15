@@ -2,7 +2,7 @@
   <div class="g-width-80">
     <div class="logo" routerLink="/">Polyglouts</div>
     <div class="profile-section" *ngIf="isLogin">
-      <div class="profile-fullname">{{ fullname }}</div>
+      <p>{{ fullname }}</p>
       <div class="profile-picture">
         <img
           src="assets/images/icons8-circled-user-male-skin-type-5-96.png"
@@ -10,6 +10,7 @@
           srcset=""
         />
       </div>
+      <button (click)="Logout()">Çıkış Yap</button>
     </div>
     <div class="login" *ngIf="!isLogin">
       <button routerLink="login">Giriş Yap</button>

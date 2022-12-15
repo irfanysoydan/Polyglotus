@@ -2,9 +2,14 @@
   <div class="g-box-container">
     <h2>Şifreni Yenile</h2>
     <div class="inputs">
-      <input type="text" placeholder="Email" />
+      <input
+        type="text"
+        placeholder="Email"
+        #email
+        value="ahmetkaymak2207@gmail.com"
+      />
     </div>
-    <button>Kod gönder</button>
+    <button (click)="forgotPassword(email.value)">Kod gönder</button>
     <p>Hesabın var mı? <a href="login">Giriş Yap</a></p>
     <p>Hesabın yok mu? <a href="register">Kayıt Ol</a></p>
   </div>
