@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
+import { AuthGuard } from './components/auth-guard/auth-guard';
 import { CardComponent } from './components/card/card.component';
 import { CreateCardComponent } from './components/create-card/create-card.component';
 import { DeckComponent } from './components/deck/deck.component';
@@ -16,7 +17,7 @@ import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: HomeComponent, canActivate: [AuthGuard],
   },
   {
     path: 'main',
@@ -35,7 +36,7 @@ const routes: Routes = [
     component: ForgotPassswordComponent
   },
   {
-    path: 'renew-password',
+    path: 'resetPassword',
     component: RenewPasswordComponent
   },
   {

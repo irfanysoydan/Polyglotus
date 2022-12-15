@@ -15,14 +15,23 @@ header .g-width-80 .logo {
   cursor: pointer;
 }
 header .g-width-80 .profile-section {
-  width: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+header .g-width-80 .profile-section p {
+  text-align: center;
+  padding-right: 30px;
+}
 header .g-width-80 .profile-section img {
   width: 48px;
   height: 48px;
+}
+header .g-width-80 .profile-section button {
+  color: #ff0000;
+  box-shadow: unset;
+  height: 48px;
+  width: 150px;
 }
 header .g-width-80 .login {
   width: 15%;
