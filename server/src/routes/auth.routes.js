@@ -9,13 +9,8 @@ AuthRouter.post(
   check("fullName", "Adınız en az 3, en fazla 40 karakter içermeli").isLength({ min: 3, max: 40 }),
   AuthController.createUser
 );
-AuthRouter.post(
-  "/login",
-  check("email", "Lütfen geçerli bir email adresi giriniz").isEmail(),
-  check("password", "Şifreniz en az 8, en fazla 24 karakter içermeli").isLength({ min: 8, max: 24 }),
-  AuthController.loginUser
-);
+AuthRouter.post("/login", AuthController.loginUser);
 AuthRouter.post("/forgotPassword", AuthController.forgotPassword);
-AuthRouter.get("/resetPassword", AuthController.resetPassword);
+AuthRouter.post("/resetPassword", AuthController.resetPassword);
 
 module.exports = AuthRouter;

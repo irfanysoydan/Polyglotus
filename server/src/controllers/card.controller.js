@@ -1,5 +1,8 @@
+const { validationResult } = require("express-validator");
 const CreateCardDto = require("../dtos/card/CreateCard.dto");
 const GetCardDto = require("../dtos/card/GetCard.dto");
+const HttpStatusCodes = require("http-status-codes");
+const { ServiceResponse } = require("../common/serviceResponse");
 const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
@@ -28,8 +31,8 @@ class CardController {
           where: { id: cardBack.id },
         }
       );
-
-      res.status(201).json("Kart Oluşturuldu");
+      const cards = { front: cardFront, back: cardBack };
+      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -43,7 +46,7 @@ class CardController {
         },
         include: [{ as: "Meaning", model: db.Card }],
       });
-      res.status(200).json(new GetCardDto(card));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetCardDto(card), HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -56,7 +59,7 @@ class CardController {
           deckId: req.params.deckId,
         },
       });
-      res.status(200).json(cards);
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(cards, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -64,8 +67,12 @@ class CardController {
 
   deleteCardById = async (req, res, next) => {
     try {
-      await db.Card.destroy({ where: { id: req.params.id } });
-      res.status(200).json("Kart destedenn silindi.");
+      const response = await db.Card.destroy({ where: { id: req.params.id } });
+      if (!response)
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/cards/", "Böyle bir kart bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }

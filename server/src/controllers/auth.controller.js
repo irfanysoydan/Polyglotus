@@ -3,6 +3,9 @@ const bcrypt = require("bcryptjs");
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+const HttpStatusCodes = require("http-status-codes");
+const { ServiceResponse } = require("../common/serviceResponse");
+
 const randomstring = require("randomstring");
 
 const CreateUserDto = require("../dtos/user/CreateUser.dto");
@@ -21,25 +24,25 @@ class AuthController {
       const info = new CreateUserDto(req.body);
 
       const user = await db.User.create(info);
-      res.status(201).json(user.fullName + " isimli kullanıcı oluşturuldu.");
-    } catch (err) {
-      next(err);
+      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(user, HttpStatusCodes.CREATED));
+    } catch (error) {
+      next(error);
     }
   };
 
   loginUser = async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.json(errors);
-    }
     try {
       const user = await db.User.findOne({ where: { email: req.body.email } });
       if (!user) return next(createError(404, "Mail adresiniz yanlış"));
       const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
-      if (!isPasswordCorrect) return next(createError(404, "Şifreyi yanlış girdiniz"));
+      if (!isPasswordCorrect)
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/login", "Şifreyi yanlış girdiniz."));
 
       const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: "1w" });
-      res.status(200).json(token);
+      const responseValue = { token: token, id: user.id, isAdmin: user.isAdmin };
+      res.status(200).send(responseValue);
     } catch (err) {
       next(err);
     }
@@ -49,13 +52,16 @@ class AuthController {
     try {
       const email = req.body.email;
       const userData = await db.User.findOne({ where: { email: email } });
+
       if (userData) {
         const randomString = randomstring.generate();
         await db.User.update({ token: randomString }, { where: { email: email } });
         sendResetPasswordMail(userData.fullName, userData.email, randomString);
-        res.status(200).json("Lütfen mail kutunuzu kontrol ediniz.");
+        res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
-        return next(createError(404, "Böyle bir e-mail mevcut değil"));
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/forgotPassword", "Böyle bir email mevcut değil."));
       }
     } catch (error) {
       next(error);
@@ -75,9 +81,11 @@ class AuthController {
       if (tokenData) {
         const password = hash;
         await db.User.update({ password: password }, { where: { id: tokenData.id } });
-        res.status(200).json("Şifreniz Değiştirildi");
+        res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
-        return next(createError(200, "Linkin süresi tükendi"));
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/resetPassword", "Linkin süresi tükendi."));
       }
     } catch (error) {
       next(error);

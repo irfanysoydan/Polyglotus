@@ -1,21 +1,28 @@
 const GetUserDto = require("../dtos/user/GetUser.dto");
 const db = require("../models");
 const bcrypt = require("bcryptjs");
+const HttpStatusCodes = require("http-status-codes");
+const { ServiceResponse } = require("../common/serviceResponse");
 
 class UserController {
   getUserById = async (req, res, next) => {
     const id = req.params.id;
-
     try {
-      const user = await db.User.findOne({
-        where: { id: id },
-        include: {
-          model: db.Deck,
-        },
-      });
-      res.status(200).json(new GetUserDto(user));
+      if (req.user.id == id || req.user.isAdmin === true) {
+        const user = await db.User.findOne({
+          where: { id: id },
+          include: {
+            model: db.Deck,
+          },
+        });
+        res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetUserDto(user), HttpStatusCodes.OK));
+      } else {
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/users/", "Böyle bir kullanıcı bulunamadı."));
+      }
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   };
 
@@ -26,8 +33,7 @@ class UserController {
           model: db.Deck,
         },
       });
-      console.log(users);
-      res.status(200).json(users);
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(users, HttpStatusCodes.OK));
     } catch (error) {
       res.status(500).json(error);
     }
@@ -42,7 +48,7 @@ class UserController {
         { fullName: req.body.fullName, email: req.body.email, password: hash, isAdmin: req.body.isAdmin },
         { where: { id: req.params.id } }
       );
-      res.status(200).json("User updated");
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -50,8 +56,13 @@ class UserController {
 
   deleteUser = async (req, res, next) => {
     try {
-      await db.User.destroy({ where: { id: req.params.id } });
-      res.status(200).json("User deleted");
+      const response = await db.User.destroy({ where: { id: req.params.id } });
+
+      if (!response)
+        return res
+          .status(HttpStatusCodes.NOT_FOUND)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/users/", "Böyle bir kullanıcı bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
