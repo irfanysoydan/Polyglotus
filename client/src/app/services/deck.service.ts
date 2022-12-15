@@ -17,9 +17,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class DeckService {
-  decksUrl = 'http://10.138.133.93:3000/decks/';
+  decksUrl = 'http://192.168.43.107:3000/decks/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getDecks(): Observable<Deck[]> {
     return this.http.get<Deck[]>(this.decksUrl, httpOptions);
@@ -35,7 +35,7 @@ export class DeckService {
   deleteDeck(id: number): Observable<Deck> {
     //const url = `${this.decksUrl}${id}`; // DELETE api/heroes/42
     return this.http.delete(this.decksUrl + id, httpOptions);
-      
+
   }
 
 

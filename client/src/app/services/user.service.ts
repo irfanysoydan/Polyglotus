@@ -19,25 +19,25 @@ const httpOptions = {
 export class UserService {
 
   constructor(private http: HttpClient) { }
-  usersUrl = 'http://10.138.133.93:3000/users/';
+  usersUrl = 'http://192.168.43.107:3000/users/';
 
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(this.usersUrl + id, httpOptions);
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl  , httpOptions);
+    return this.http.get<User[]>(this.usersUrl, httpOptions);
   }
 
 
   deleteUser(id: number): Observable<string> {
 
     return this.http.delete<string>(this.usersUrl + id, httpOptions);
-      
+
   }
 
-  updateUserById(id:number,user:User):Observable<string>{
-    return this.http.put<string>(this.usersUrl + id, user ,httpOptions);
+  updateUserById(id: number, user: User): Observable<string> {
+    return this.http.put<string>(this.usersUrl + id, user, httpOptions);
   }
 
 }

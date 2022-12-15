@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, throwError } from 'rxjs';
@@ -22,7 +22,7 @@ const httpOptions = {
 
 export class CardService {
 
- cardsUrl = 'http://10.138.133.93:3000/cards/';
+  cardsUrl = 'http://192.168.43.107:3000/cards/';
   constructor(private http: HttpClient) { }
 
   getAllCardsByDeckId(id: number): Observable<Card[]> {
@@ -38,9 +38,9 @@ export class CardService {
   }
 
   deleteCard(id: number): Observable<string> {
-    
+
     return this.http.delete<string>(this.cardsUrl + id, httpOptions);
-      
+
   }
 
 
