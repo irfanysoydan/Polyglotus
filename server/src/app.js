@@ -4,7 +4,7 @@ const router = require("../src/routes");
 const dotenv = require("dotenv");
 var cookieParser = require("cookie-parser");
 const cors = require("cors");
-const { ErrorHandler } = require("./middlewares/errorHandler.js");
+const { errorHandlerMiddleware } = require("./middlewares/errorHandler.js");
 
 const app = express();
 app.use(cookieParser());
@@ -12,7 +12,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use(router);
-app.use(ErrorHandler);
+app.use(errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 3000;
 

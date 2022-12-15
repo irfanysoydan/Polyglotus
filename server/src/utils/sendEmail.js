@@ -20,7 +20,7 @@ const sendResetPasswordMail = async (name, email, token) => {
       html:
         "<p> Merhaba " +
         name +
-        ', Lütfen linki kopyalayınız <a href="http://localhost:3000/auth/resetPassword?token=' +
+        ', Lütfen linki kopyalayınız <a href="http://localhost:4200/resetPassword?token=' +
         token +
         '"> şifreyi değiştiriniz.</a>',
     };
