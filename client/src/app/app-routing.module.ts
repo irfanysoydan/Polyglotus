@@ -36,7 +36,7 @@ const routes: Routes = [
     component: ForgotPassswordComponent
   },
   {
-    path: 'renew-password',
+    path: 'resetPassword',
     component: RenewPasswordComponent
   },
   {

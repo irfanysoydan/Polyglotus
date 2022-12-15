@@ -9,7 +9,7 @@ import { CardService } from 'src/app/services/card.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private cardservice: CardService) {}
+  constructor(private cardservice: CardService) { }
   decks: any[] = [
     { deckId: 1, name: 'Test Deck 1', cardCount: 12, complatePercentage: 50 },
     { deckId: 2, name: 'Test Deck 2', cardCount: 25, complatePercentage: 30 },

@@ -16,8 +16,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 import { CreateCardComponent } from './components/create-card/create-card.component';
 import { ForgotPassswordComponent } from './components/forgot-passsword/forgot-passsword.component';
-import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
 import { AuthGuard } from './components/auth-guard/auth-guard';
+import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
 
 @NgModule({
   declarations: [

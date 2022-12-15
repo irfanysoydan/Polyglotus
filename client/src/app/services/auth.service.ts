@@ -19,7 +19,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  baseServerUrl = "http://10.138.133.93:3000/auth/";
+  baseServerUrl = "http://192.168.43.107:3000/auth/";
 
   loginUser(user: User): Observable<Login> {
     return this.http.post<Login>(this.baseServerUrl + "login", user, httpOptions);
@@ -29,8 +29,11 @@ export class AuthService {
   }
 
   forgotPassword(email: string): Observable<string> {
-
     return this.http.post<string>(this.baseServerUrl + "forgotPassword", { email: email }, httpOptions);
+  }
+
+  resetPassword(pass: string, token: string): Observable<string> {
+    return this.http.post<string>(this.baseServerUrl + "resetPassword?token=" + token, { password: pass }, httpOptions);
   }
 
 }
