@@ -3,6 +3,10 @@ const GetCardDto = require("../dtos/card/GetCard.dto");
 const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors);
+    }
     try {
       const front = new CreateCardDto(req.body.front);
       const back = new CreateCardDto(req.body.back);
