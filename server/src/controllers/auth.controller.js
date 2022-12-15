@@ -2,54 +2,20 @@ const db = require("../models");
 const bcrypt = require("bcryptjs");
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
-
-const nodemailer = require("nodemailer");
+const { validationResult } = require("express-validator");
 const randomstring = require("randomstring");
 
-const sendResetPasswordMail = async (name, email, token) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      requireTLS: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "For Reset Password",
-      html:
-        "<p> Merhaba " +
-        name +
-        ', Lütfen linki kopyalayınız <a href="http://localhost:3000/auth/resetPassword?token=' +
-        token +
-        '"> şifreyi değiştiriniz.</a>',
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Mail gönderildi- ", info.response);
-      }
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const CreateUserDto = require("../dtos/user/CreateUser.dto");
+const { sendResetPasswordMail } = require("../utils/sendEmail");
 
 class AuthController {
   createUser = async (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors);
+    }
     try {
       req.body.password = hash;
       const info = new CreateUserDto(req.body);
@@ -62,6 +28,10 @@ class AuthController {
   };
 
   loginUser = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors);
+    }
     try {
       const user = await db.User.findOne({ where: { email: req.body.email } });
       if (!user) return next(createError(404, "Mail adresiniz yanlış"));

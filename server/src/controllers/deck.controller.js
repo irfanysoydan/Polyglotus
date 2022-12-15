@@ -1,9 +1,15 @@
+const { validationResult } = require("express-validator");
 const createError = require("http-errors");
 const CreateDeckDto = require("../dtos/deck/CreateDeck.dto");
 const GetDeckDto = require("../dtos/deck/GetDeck.dto");
 const db = require("../models");
+
 class DeckController {
   createDeck = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json(errors);
+    }
     try {
       const data = new CreateDeckDto(req.body);
       data.userId = req.user.id;
