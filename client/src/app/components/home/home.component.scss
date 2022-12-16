@@ -6,7 +6,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-
+  .exception {
+    color: $red;
+    width: 100%;
+  }
   .create-deck {
     width: 100%;
     display: flex;

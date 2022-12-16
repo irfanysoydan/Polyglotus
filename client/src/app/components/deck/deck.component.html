@@ -6,28 +6,19 @@
   </div>
   <div class="deck-title">
     <h4>Kartlar</h4>
-    <button routerLink="create-card">Ekle</button>
+    <button
+      routerLink="create-card"
+      [routerLink]="'create-card'"
+      [state]="{ deck: deckInfo }"
+    >
+      Ekle
+    </button>
   </div>
   <div class="card-list">
-    <div class="g-box-container">
-      <p>Word 1</p>
-      <p class="status red">Zor</p>
-      <button>Sil</button>
-    </div>
-    <div class="g-box-container">
-      <p>Word 2</p>
-      <p class="status green">Kolay</p>
-      <button>Sil</button>
-    </div>
-    <div class="g-box-container">
-      <p>Word 3</p>
-      <p class="status red">Zor</p>
-      <button>Sil</button>
-    </div>
-    <div class="g-box-container">
-      <p>Word 4</p>
-      <p class="status green">Kolay</p>
-      <button>Sil</button>
+    <div class="g-box-container" *ngFor="let card of cards">
+      <p>{{ card.word }}</p>
+      <p class="status red">{{ card.status }}</p>
+      <button (click)="deleteCard(card.id ? card.id : -1)">Sil</button>
     </div>
   </div>
 </div>

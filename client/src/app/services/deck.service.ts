@@ -1,15 +1,17 @@
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable, throwError, } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Deck } from '../models/deck.model';
+import { ResponseModel } from '../models/response.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY3MTAyODEzMywiZXhwIjoxNjcxNjMyOTMzfQ.NX6dHizhKMD9dKfOUoeNMQLqkYtZjE2XL1mGSgsnkxQ',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjcxMjAwNDk2LCJleHAiOjE2NzE4MDUyOTZ9.q6-EbhvIX3mGSjRSokFd1n3jlKv5uJ0RL8ZZH73qiJA',
   }),
 };
 
@@ -17,26 +19,31 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class DeckService {
-  decksUrl = 'http://192.168.43.107:3000/decks/';
+  public decks: Deck[] | any;
+  public deck: Deck | any;
+  decksUrl = environment.apiUrl + 'decks/';
 
   constructor(private http: HttpClient) { }
 
-  getDecks(): Observable<Deck[]> {
-    return this.http.get<Deck[]>(this.decksUrl, httpOptions);
+  getDecks(): Observable<ResponseModel> {
+    return this.http.get<ResponseModel>(this.decksUrl, httpOptions)
   }
 
   getDeckId(id: number): Observable<Deck> {
-    return this.http.get<Deck>(this.decksUrl + id, httpOptions);
+    return this.http.get<ResponseModel>(this.decksUrl + id, httpOptions)
+      .pipe(map((response: ResponseModel) => {
+        if (response.isSuccessful) {
+          return this.deck = response.data;
+        } else {
+          return {};
+        }
+      }));
   }
-  createDeck(deck: Deck): Observable<Deck> {
-    return this.http.post<Deck>(this.decksUrl, deck, httpOptions);
+  createDeck(deck: Deck): Observable<ResponseModel> {
+    return this.http.post<ResponseModel>(this.decksUrl, deck, httpOptions)
   }
 
-  deleteDeck(id: number): Observable<Deck> {
-    //const url = `${this.decksUrl}${id}`; // DELETE api/heroes/42
-    return this.http.delete(this.decksUrl + id, httpOptions);
-
+  deleteDeck(id: number): Observable<ResponseModel> {
+    return this.http.delete<ResponseModel>(this.decksUrl + id, httpOptions);
   }
-
-
 }

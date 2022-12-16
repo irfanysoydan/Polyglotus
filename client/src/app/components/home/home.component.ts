@@ -2,49 +2,65 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Card } from 'src/app/models/card.model';
 import { CreateCard } from 'src/app/models/create-card.model';
+import { Deck } from 'src/app/models/deck.model';
 import { CardService } from 'src/app/services/card.service';
+import { DeckService } from 'src/app/services/deck.service';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private cardservice: CardService) { }
-  decks: any[] = [
-    { deckId: 1, name: 'Test Deck 1', cardCount: 12, complatePercentage: 50 },
-    { deckId: 2, name: 'Test Deck 2', cardCount: 25, complatePercentage: 30 },
-    { deckId: 3, name: 'Test Deck 3', cardCount: 32, complatePercentage: 80 },
-    { deckId: 4, name: 'Test Deck 4', cardCount: 6, complatePercentage: 20 },
-    { deckId: 5, name: 'Test Deck 5', cardCount: 8, complatePercentage: 75 },
-  ];
-
+  constructor(private deckService: DeckService, private loader: LoaderService) { }
+  decks: any[] = [];
+  isException: boolean = false;
   ngOnInit(): void {
-    var card: Card = new Card();
-    card.word = 'Ön ';
-    card.description = 'hsdjckxas';
-    card.status = false;
+    this.getDecks();
+  }
+  AddDeck(deckName: string) {
+    if (deckName != "") {
+      let deck: Deck = new Deck();
+      deck.name = deckName;
+      this.deckService.createDeck(deck).subscribe(response => {
+        if (response.isSuccessful) {
+          this.decks.push(response.data);
+        } else {
+          this.isException = true;
+        }
 
-    var card2: Card = new Card();
-    card2.word = 'Arka';
-    card2.description = '123123';
-    card2.status = false;
-
-    var createCard: CreateCard = new CreateCard();
-    createCard.deckId = 21;
-    createCard.front = card;
-    createCard.back = card2;
-
-    this.cardservice.deleteCard(21).subscribe((x) => console.log(x));
+      });
+      this.isException = false;
+    } else {
+      this.isException = true
+    }
 
   }
-  deckId: number = 6;
-  AddDeck(deckName: string) {
-    this.decks.push({
-      deckId: this.deckId,
-      name: deckName,
-      cardCount: 0,
-      complatePercentage: 0,
+  getDecks() {
+    this.loader.setLoading(true);
+    this.deckService.getDecks().subscribe(response => {
+      if (response.isSuccessful) {
+        this.decks = response.data;
+      } else {
+        this.decks = [];
+      }
+      this.loader.setLoading(false);
     });
-    this.deckId++;
+
+  }
+  deleteDeck(deckId: number) {
+    if (deckId != null) {
+      this.deckService.deleteDeck(deckId).subscribe(response => {
+        if (response.isSuccessful) {
+          this.decks = this.decks.filter((deck => deck.id != deckId));
+        } else {
+          this.isException = true;
+        }
+      });
+      this.isException = false;
+    } else {
+      this.isException = true;
+    }
+
   }
 }

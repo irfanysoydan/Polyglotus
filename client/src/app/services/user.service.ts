@@ -1,15 +1,17 @@
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User } from '../models/user.model';
+import { ResponseModel } from '../models/response.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjcxMDk4MTIxLCJleHAiOjE2NzE3MDI5MjF9.s3JxqiNvuKJ1291t6VvIGVoYTbjUHS85A3zMk6LMm8k',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjcxMjAwNDk2LCJleHAiOjE2NzE4MDUyOTZ9.q6-EbhvIX3mGSjRSokFd1n3jlKv5uJ0RL8ZZH73qiJA',
   }),
 };
 
@@ -19,25 +21,24 @@ const httpOptions = {
 export class UserService {
 
   constructor(private http: HttpClient) { }
-  usersUrl = 'http://192.168.43.107:3000/users/';
+  usersUrl = environment.apiUrl + "users/";
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(this.usersUrl + id, httpOptions);
+  getUserById(id: number): Observable<ResponseModel> {
+    return this.http.get<ResponseModel>(this.usersUrl + id, httpOptions);
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl, httpOptions);
+  getAllUsers(): Observable<ResponseModel[]> {
+    return this.http.get<ResponseModel[]>(this.usersUrl, httpOptions);
   }
 
+  deleteUser(id: number): Observable<ResponseModel> {
 
-  deleteUser(id: number): Observable<string> {
-
-    return this.http.delete<string>(this.usersUrl + id, httpOptions);
+    return this.http.delete<ResponseModel>(this.usersUrl + id, httpOptions);
 
   }
 
-  updateUserById(id: number, user: User): Observable<string> {
-    return this.http.put<string>(this.usersUrl + id, user, httpOptions);
+  updateUserById(id: number, user: User): Observable<ResponseModel> {
+    return this.http.put<ResponseModel>(this.usersUrl + id, user, httpOptions);
   }
 
 }

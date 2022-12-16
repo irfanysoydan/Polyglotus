@@ -18,7 +18,7 @@ import { CreateCardComponent } from './components/create-card/create-card.compon
 import { ForgotPassswordComponent } from './components/forgot-passsword/forgot-passsword.component';
 import { AuthGuard } from './components/auth-guard/auth-guard';
 import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
-
+import { SpinnerComponent } from './components/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +36,7 @@ import { RenewPasswordComponent } from './components/renew-password/renew-passwo
     CreateCardComponent,
     ForgotPassswordComponent,
     RenewPasswordComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

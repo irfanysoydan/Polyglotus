@@ -24,7 +24,9 @@ class AuthController {
       const info = new CreateUserDto(req.body);
 
       const user = await db.User.create(info);
-      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(user, HttpStatusCodes.CREATED));
+      res
+        .status(HttpStatusCodes.CREATED)
+        .json(ServiceResponse.successWithData(user, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -34,14 +36,31 @@ class AuthController {
     try {
       const user = await db.User.findOne({ where: { email: req.body.email } });
       if (!user) return next(createError(404, "Mail adresiniz yanlış"));
-      const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
+      const isPasswordCorrect = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
       if (!isPasswordCorrect)
         return res
-          .status(HttpStatusCodes.NOT_FOUND)
-          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/login", "Şifreyi yanlış girdiniz."));
+          .status(HttpStatusCodes.OK)
+          .json(
+            ServiceResponse.fail(
+              HttpStatusCodes.NOT_FOUND,
+              "/auth/login",
+              "Şifreyi yanlış girdiniz."
+            )
+          );
 
-      const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: "1w" });
-      const responseValue = { token: token, id: user.id, isAdmin: user.isAdmin };
+      const token = jwt.sign(
+        { id: user.id, isAdmin: user.isAdmin },
+        process.env.JWT,
+        { expiresIn: "1w" }
+      );
+      const responseValue = {
+        token: token,
+        id: user.id,
+        isAdmin: user.isAdmin,
+      };
       res.status(200).send(responseValue);
     } catch (err) {
       next(err);
@@ -55,13 +74,24 @@ class AuthController {
 
       if (userData) {
         const randomString = randomstring.generate();
-        await db.User.update({ token: randomString }, { where: { email: email } });
+        await db.User.update(
+          { token: randomString },
+          { where: { email: email } }
+        );
         sendResetPasswordMail(userData.fullName, userData.email, randomString);
-        res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+        res
+          .status(HttpStatusCodes.OK)
+          .json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
         return res
-          .status(HttpStatusCodes.NOT_FOUND)
-          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/forgotPassword", "Böyle bir email mevcut değil."));
+          .status(HttpStatusCodes.OK)
+          .json(
+            ServiceResponse.fail(
+              HttpStatusCodes.NOT_FOUND,
+              "/auth/forgotPassword",
+              "Böyle bir email mevcut değil."
+            )
+          );
       }
     } catch (error) {
       next(error);
@@ -80,12 +110,23 @@ class AuthController {
 
       if (tokenData) {
         const password = hash;
-        await db.User.update({ password: password }, { where: { id: tokenData.id } });
-        res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+        await db.User.update(
+          { password: password },
+          { where: { id: tokenData.id } }
+        );
+        res
+          .status(HttpStatusCodes.OK)
+          .json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
         return res
-          .status(HttpStatusCodes.NOT_FOUND)
-          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/resetPassword", "Linkin süresi tükendi."));
+          .status(HttpStatusCodes.OK)
+          .json(
+            ServiceResponse.fail(
+              HttpStatusCodes.NOT_FOUND,
+              "/auth/resetPassword",
+              "Linkin süresi tükendi."
+            )
+          );
       }
     } catch (error) {
       next(error);

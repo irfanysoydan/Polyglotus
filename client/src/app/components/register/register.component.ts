@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-register',
@@ -10,13 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private loader: LoaderService) { }
 
   ngOnInit(): void {
   }
 
   register(fullname: string, email: string, pass: string) {
-
+    this.loader.setLoading(true);
     if (typeof fullname != 'undefined' && typeof email != 'undefined' && typeof pass != 'undefined') {
       let user: User = new User();
       user.fullName = fullname;
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
         if (typeof result != 'undefined') {
           this.router.navigate(['/login']);
         }
+        this.loader.setLoading(false);
       });
     } else {
 

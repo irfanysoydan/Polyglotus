@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Card } from 'src/app/models/card.model';
 import { Deck } from 'src/app/models/deck.model';
+import { CardService } from 'src/app/services/card.service';
 
 @Component({
   selector: 'app-work-deck',
@@ -8,61 +9,49 @@ import { Deck } from 'src/app/models/deck.model';
   styleUrls: ['./work-deck.component.scss']
 })
 export class WorkDeckComponent {
-  constructor() { }
-  deckInfo: any;
-  cards: Card[] = [
-    {
-      id: 1,
-      deckId: 1,
-      word: "Word 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non dictum risus. Fusce ullamcorper, purus quis eleifend sagittis, felis lectus congue mi, non suscipit nisi est non erat. ",
-      meaningId: 2,
-      status: false
-    },
-    {
-      id: 2,
-      deckId: 1,
-      word: "Answer 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non dictum risus. Fusce ullamcorper, purus quis eleifend sagittis, felis lectus congue mi, non suscipit nisi est non erat. ",
-      meaningId: 1,
-      status: false
-    }, {
-      id: 3,
-      deckId: 1,
-      word: "Word 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non dictum risus. Fusce ullamcorper, purus quis eleifend sagittis, felis lectus congue mi, non suscipit nisi est non erat. ",
-      meaningId: 4,
-      status: false
-    },
-    {
-      id: 4,
-      deckId: 1,
-      word: "Answer 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non dictum risus. Fusce ullamcorper, purus quis eleifend sagittis, felis lectus congue mi, non suscipit nisi est non erat. ",
-      meaningId: 3,
-      status: false
-    }
-  ]
-  cardId: number = 1;
-  selectedCardFront: any = this.cards.find(a => a.id == this.cardId);
-  selectedCardBack: any = this.cards.find(a => a.meaningId == this.cardId);
+  constructor(private cardService: CardService) { }
+  deckInfo: Deck = new Deck();
+  cards: Card[] = [];
+  cardId: number = 0;
+  selectedCardFront: Card = new Card();
+  selectedCardBack: Card = new Card();
   showCard: boolean = true;
+  isEndOfTheDeck: boolean = false;
   ngOnInit(): void {
     this.deckInfo = history.state.deck;
+    this.getCardsByDeckId();
+
+
+  }
+  getCardsByDeckId() {
+    if (this.deckInfo) {
+      this.cardService.getAllCardsByDeckId(this.deckInfo.id ? this.deckInfo.id : -1).subscribe(response => {
+        if (response.isSuccessful) {
+          this.cards = response.data;
+          this.selectedCardFront = this.cards[0];
+          this.selectedCardBack = this.cards[1];
+        }
+      });
+    }
   }
 
   nextCard(status: boolean) {
-    this.cardId += 2;
-    this.selectedCardFront = this.cards.find(a => a.id == this.cardId);
-    this.selectedCardBack = this.cards.find(a => a.meaningId == this.cardId);
-    this.showCard = true
-    if (status) {
-      this.selectedCardFront.status = true;
-      this.selectedCardBack.status = true;
+    if (this.cardId < this.cards.length - 2) {
+      this.cardId += 2;
+      this.selectedCardFront = this.cards[this.cardId];
+      this.selectedCardBack = this.cards[++this.cardId];
+
+      this.showCard = true
+      if (status) {
+        this.selectedCardFront.status = true;
+        this.selectedCardBack.status = true;
+      } else {
+        this.selectedCardFront.status = false;
+        this.selectedCardBack.status = false;
+      }
     } else {
-      this.selectedCardFront.state = false;
-      this.selectedCardBack.status = false;
+      this.isEndOfTheDeck = true;
+      this.showCard = false;
     }
   }
-
 }

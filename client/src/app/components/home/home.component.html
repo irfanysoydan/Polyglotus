@@ -1,5 +1,5 @@
-<!-- <button [routerLink]="'deck'" [state]="{ data: { tst: 1 } }"></button> -->
 <div class="home">
+  <p class="exception" *ngIf="isException">Deste oluşturulamadı!</p>
   <div class="create-deck">
     <input type="text" placeholder="Deste Adı" #deckname />
     <button (click)="AddDeck(deckname.value)">Deste Oluştur</button>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="deck-footer">
-        <button class="deck-delete">Sil</button>
+        <button class="deck-delete" (click)="deleteDeck(deck.id)">Sil</button>
         <button [routerLink]="'deck'" [state]="{ deck: deck }">Detaylar</button>
       </div>
     </div>

@@ -1,9 +1,12 @@
 <div class="work-deck">
-  <div class="g-box-container" *ngIf="showCard">
+  <div class="g-box-container" *ngIf="isEndOfTheDeck">
+    <h3>Destenin sonu</h3>
+  </div>
+  <div class="g-box-container" *ngIf="!isEndOfTheDeck && showCard">
     <h3>{{ selectedCardFront.word }}</h3>
     <p>{{ selectedCardFront.description }}</p>
   </div>
-  <div class="g-box-container" *ngIf="!showCard">
+  <div class="g-box-container" *ngIf="!isEndOfTheDeck && !showCard">
     <h3>{{ selectedCardBack.word }}</h3>
     <p>{{ selectedCardBack.description }}</p>
   </div>

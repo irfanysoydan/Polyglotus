@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -19,7 +20,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  baseServerUrl = "http://192.168.43.107:3000/auth/";
+  baseServerUrl = environment.apiUrl + "auth/";
 
   loginUser(user: User): Observable<Login> {
     return this.http.post<Login>(this.baseServerUrl + "login", user, httpOptions);

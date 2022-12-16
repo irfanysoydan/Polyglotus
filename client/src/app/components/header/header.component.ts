@@ -15,10 +15,11 @@ export class HeaderComponent implements OnInit {
   isLogin: boolean = false;
   ngOnInit(): void {
     if (localStorage.getItem("id")) {
-      this.userService.getUserById(Number(localStorage.getItem("id"))).subscribe(user => {
-        this.isLogin = true;
-        this.fullname = user.fullName;
-        this.ngOnInit();
+      this.userService.getUserById(Number(localStorage.getItem("id"))).subscribe(response => {
+        if (response.isSuccessful) {
+          this.isLogin = true;
+          this.fullname = response.data.fullName;
+        }
       })
 
     } else {

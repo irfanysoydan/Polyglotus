@@ -32,7 +32,9 @@ class CardController {
         }
       );
       const cards = { front: cardFront, back: cardBack };
-      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
+      res
+        .status(HttpStatusCodes.CREATED)
+        .json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -46,7 +48,14 @@ class CardController {
         },
         include: [{ as: "Meaning", model: db.Card }],
       });
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetCardDto(card), HttpStatusCodes.OK));
+      res
+        .status(HttpStatusCodes.OK)
+        .json(
+          ServiceResponse.successWithData(
+            new GetCardDto(card),
+            HttpStatusCodes.OK
+          )
+        );
     } catch (error) {
       next(error);
     }
@@ -59,7 +68,9 @@ class CardController {
           deckId: req.params.deckId,
         },
       });
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(cards, HttpStatusCodes.OK));
+      res
+        .status(HttpStatusCodes.OK)
+        .json(ServiceResponse.successWithData(cards, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -70,9 +81,17 @@ class CardController {
       const response = await db.Card.destroy({ where: { id: req.params.id } });
       if (!response)
         return res
-          .status(HttpStatusCodes.NOT_FOUND)
-          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/cards/", "Böyle bir kart bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
+          .status(HttpStatusCodes.OK)
+          .json(
+            ServiceResponse.fail(
+              HttpStatusCodes.NOT_FOUND,
+              "/cards/",
+              "Böyle bir kart bulunamadı."
+            )
+          );
+      res
+        .status(HttpStatusCodes.OK)
+        .json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
