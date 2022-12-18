@@ -1,6 +1,7 @@
 <div class="register">
   <div class="g-box-container">
     <h2>Kayıt Ol</h2>
+    <app-error *ngIf="isError" [message]="message"></app-error>
     <div class="inputs">
       <input type="text" placeholder="Full Name" #fullname />
       <input type="text" placeholder="Email" #email />

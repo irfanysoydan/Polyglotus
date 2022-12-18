@@ -1,5 +1,6 @@
 .error {
   width: 100%;
+  text-align: center;
   margin: 10px 0;
   color: #ff0000;
 }
