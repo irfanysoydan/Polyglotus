@@ -1,0 +1,8 @@
+.error {
+  width: 100%;
+  margin: 10px 0;
+  color: #ff0000;
+}
+.error p {
+  font-size: medium;
+}/*# sourceMappingURL=error.component.css.map */
