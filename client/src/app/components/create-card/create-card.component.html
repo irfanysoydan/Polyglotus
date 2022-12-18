@@ -1,5 +1,6 @@
 <div class="create-card">
   <div class="upcontainer">
+    <app-error *ngIf="isError" [message]="message"></app-error>
     <div class="container">
       <h2>Ön Yüz</h2>
       <div class="inputs">
