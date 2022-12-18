@@ -1,5 +1,5 @@
 <div class="home">
-  <p class="exception" *ngIf="isException">Deste oluşturulamadı!</p>
+  <app-error *ngIf="isError" [message]="message"></app-error>
   <div class="create-deck">
     <input type="text" placeholder="Deste Adı" #deckname />
     <button (click)="AddDeck(deckname.value)">Deste Oluştur</button>

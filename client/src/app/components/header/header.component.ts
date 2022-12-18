@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { LocalService } from 'src/app/services/local.service';
 import { UserService } from 'src/app/services/user.service';
 
 
@@ -10,24 +10,23 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private localStore: LocalService) { }
   fullname: any;
   isLogin: boolean = false;
   ngOnInit(): void {
-    if (localStorage.getItem("id")) {
-      this.userService.getUserById(Number(localStorage.getItem("id"))).subscribe(response => {
+    if (this.localStore.getData("id")) {
+      this.userService.getUserById(Number(this.localStore.getData("id"))).subscribe(response => {
         if (response.isSuccessful) {
           this.isLogin = true;
           this.fullname = response.data.fullName;
         }
       })
-
     } else {
       this.isLogin = false;
     }
   }
   public Logout() {
-    localStorage.clear();
+    this.localStore.clearData();
     this.router.navigate(['/login']);
   }
 }

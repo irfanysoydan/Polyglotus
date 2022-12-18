@@ -21,7 +21,6 @@ export class WorkDeckComponent {
     this.deckInfo = history.state.deck;
     this.getCardsByDeckId();
 
-
   }
   getCardsByDeckId() {
     if (this.deckInfo) {
