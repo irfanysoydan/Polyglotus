@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router, private loader: LoaderService) { }
+  constructor(private authService: AuthService, private router: Router, private loader: LoaderService, private localStore: LocalService) { }
   ngOnInit(): void {
 
   }
@@ -20,13 +21,13 @@ export class LoginComponent implements OnInit {
     if (typeof email != 'undefined' && typeof pass != 'undefined') {
       user.email = email;
       user.password = pass;
-      this.authService.loginUser(user).subscribe(p => {
-        if (p.token == null) {
+      this.authService.loginUser(user).subscribe(loginUser => {
+        if (loginUser.token == null) {
           //Toats warning
         } else {
-          localStorage.setItem("id", p.id.toString());
-          localStorage.setItem("isAdmin", p.isAdmin == true ? "1" : "0");
-          localStorage.setItem("token", p.token);
+          this.localStore.saveData("id", loginUser.id.toString());
+          this.localStore.saveData("isAdmin", loginUser.isAdmin == true ? "1" : "0");
+          this.localStore.saveData("token", loginUser.token);
           this.router.navigate(['/']);
         }
         this.loader.setLoading(false);
