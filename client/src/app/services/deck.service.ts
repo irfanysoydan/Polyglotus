@@ -6,12 +6,11 @@ import { Observable, throwError, } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Deck } from '../models/deck.model';
 import { ResponseModel } from '../models/response.model';
+import { LocalService } from './local.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjcxMjAwNDk2LCJleHAiOjE2NzE4MDUyOTZ9.q6-EbhvIX3mGSjRSokFd1n3jlKv5uJ0RL8ZZH73qiJA',
+    'Content-Type': 'application/json'
   }),
 };
 
@@ -23,7 +22,10 @@ export class DeckService {
   public deck: Deck | any;
   decksUrl = environment.apiUrl + 'decks/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private localStore: LocalService) {
+    httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json; charset=utf-8')
+      .set('Authorization', "Bearer " + this.localStore.getData("token"));
+  }
 
   getDecks(): Observable<ResponseModel> {
     return this.http.get<ResponseModel>(this.decksUrl, httpOptions)

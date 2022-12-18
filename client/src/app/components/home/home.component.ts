@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Card } from 'src/app/models/card.model';
-import { CreateCard } from 'src/app/models/create-card.model';
 import { Deck } from 'src/app/models/deck.model';
-import { CardService } from 'src/app/services/card.service';
 import { DeckService } from 'src/app/services/deck.service';
 import { LoaderService } from 'src/app/services/loader.service';
 @Component({

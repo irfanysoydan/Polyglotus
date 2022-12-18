@@ -2,8 +2,13 @@
   <div class="g-box-container">
     <h2>Giriş Yap</h2>
     <div class="inputs">
-      <input type="text" placeholder="Email" #email />
-      <input type="password" placeholder="Password" #pass />
+      <input
+        type="text"
+        placeholder="Email"
+        #email
+        value="omerozoglu.1@gmail.com"
+      />
+      <input type="password" placeholder="Password" #pass value="omer12345" />
     </div>
     <button (click)="login(email.value, pass.value)">Giriş Yap</button>
     <p>Hesabın yok mu? <a href="register">Kayıt Ol</a></p>
