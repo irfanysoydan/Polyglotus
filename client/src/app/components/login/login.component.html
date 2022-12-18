@@ -1,6 +1,7 @@
 <div class="login">
   <div class="g-box-container">
     <h2>Giriş Yap</h2>
+    <app-error *ngIf="isError" [message]="message"></app-error>
     <div class="inputs">
       <input
         type="text"
@@ -10,6 +11,7 @@
       />
       <input type="password" placeholder="Password" #pass value="omer12345" />
     </div>
+
     <button (click)="login(email.value, pass.value)">Giriş Yap</button>
     <p>Hesabın yok mu? <a href="register">Kayıt Ol</a></p>
     <p>Şifreni mi unuttun?<a href="forgot-password">Yenile</a></p>

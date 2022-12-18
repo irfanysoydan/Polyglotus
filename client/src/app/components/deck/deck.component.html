@@ -1,7 +1,7 @@
 <div class="deck-detail">
+  <app-error *ngIf="isError" [message]="message"></app-error>
   <div class="update-deck">
     <input type="text" value="{{ deckInfo.name }}" />
-
     <button>Güncelle</button>
   </div>
   <div class="deck-title">

@@ -8,27 +8,30 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private deckService: DeckService, private loader: LoaderService) { }
   decks: any[] = [];
-  isException: boolean = false;
+  isError: boolean = false;
+  message: string = "";
+  constructor(private deckService: DeckService, private loader: LoaderService) { }
+
   ngOnInit(): void {
     this.getDecks();
   }
   AddDeck(deckName: string) {
-    if (deckName != "") {
+    if (deckName.trim() != '') {
       let deck: Deck = new Deck();
       deck.name = deckName;
       this.deckService.createDeck(deck).subscribe(response => {
         if (response.isSuccessful) {
+          this.isError = false;
           this.decks.push(response.data);
         } else {
-          this.isException = true;
+          this.message = "Deste oluşturulamadı"
+          this.isError = true;
         }
-
       });
-      this.isException = false;
     } else {
-      this.isException = true
+      this.message = "Deste adı boş olamaz."
+      this.isError = true;
     }
 
   }
@@ -48,15 +51,16 @@ export class HomeComponent implements OnInit {
     if (deckId != null) {
       this.deckService.deleteDeck(deckId).subscribe(response => {
         if (response.isSuccessful) {
+          this.isError = false;
           this.decks = this.decks.filter((deck => deck.id != deckId));
         } else {
-          this.isException = true;
+          this.message = "Deste silinemedi."
+          this.isError = true;
         }
       });
-      this.isException = false;
     } else {
-      this.isException = true;
+      this.message = "Deste silinemedi."
+      this.isError = true;
     }
-
   }
 }
