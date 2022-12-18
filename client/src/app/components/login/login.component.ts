@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       user.email = email;
       user.password = pass;
       this.authService.loginUser(user).subscribe(loginUser => {
-        if (loginUser.token == null) {
+        if (loginUser.token == null || loginUser.token.trim() == '') {
           this.message = "Email veya şifre hatalı !"
           this.isError = true;
         } else {

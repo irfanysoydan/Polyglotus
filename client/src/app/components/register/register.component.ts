@@ -45,9 +45,12 @@ export class RegisterComponent implements OnInit {
         user.fullName = fullname;
         user.email = email;
         user.password = pass;
-        this.authService.registerUser(user).subscribe(result => {
-          if (typeof result != 'undefined') {
+        this.authService.registerUser(user).subscribe(response => {
+          if (response.isSuccessful) {
             this.router.navigate(['/login']);
+          } else {
+            this.message = "Kayıt olma başarısız."
+            this.isError = true;
           }
         });
       }
