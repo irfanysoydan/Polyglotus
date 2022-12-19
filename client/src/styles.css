@@ -85,6 +85,40 @@ textarea:focus {
   border-radius: 18px;
 }
 
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  overflow-y: scroll;
+}
+.list .g-box-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list .g-box-container p.status.red {
+  color: #ff0000;
+}
+.list .g-box-container p.status.green {
+  color: #00ff2b;
+}
+.list .g-box-container p {
+  margin-left: 30px;
+}
+.list .g-box-container button {
+  border: 2px;
+  border-color: aqua;
+  box-shadow: unset;
+  width: 10%;
+  color: #ff0000;
+}
+.list .g-box-container button:hover {
+  background-color: hsla(0deg, 100%, 50%, 0.3);
+  color: white;
+}
+
 .g-width-80 {
   width: 80%;
   margin: auto;

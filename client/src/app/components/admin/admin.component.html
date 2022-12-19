@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="user-list" *ngIf="showUsers">
+<div class="list" *ngIf="showUsers">
   <app-error *ngIf="isError" [message]="message"></app-error>
   <div class="g-box-container" *ngFor="let user of users">
     <p>{{ user.email }}</p>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { DeckService } from 'src/app/services/deck.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { LocalService } from 'src/app/services/local.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,7 +15,7 @@ export class AdminComponent implements OnInit {
   isError: boolean = false;
   message: string = "";
   showUsers: boolean = false;
-  constructor(private userService: UserService, private loader: LoaderService, private localStore: LocalService) { }
+  constructor(private userService: UserService, private deckService: DeckService, private loader: LoaderService, private localStore: LocalService) { }
 
   ngOnInit(): void {
     // this.getUsers();
@@ -23,6 +24,13 @@ export class AdminComponent implements OnInit {
     this.showUsers = true;
     this.getUsers();
   }
+
+  getAlldecks() {
+    this.deckService.getDecks().subscribe(resonse => {
+      console.log(resonse.data);
+    });
+  }
+
   getUsers() {
     this.userService.getAllUsers().subscribe(response => {
       if (response.isSuccessful) {
