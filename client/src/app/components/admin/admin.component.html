@@ -1,1 +1,21 @@
-<p>admin works!</p>
+<div class="operations">
+  <div class="g-box-container">
+    <h3>Users</h3>
+    <button (click)="getUserList()">Kullanıcı Listesi</button>
+  </div>
+  <div class="g-box-container">
+    <h3>Decks</h3>
+  </div>
+  <div class="g-box-container">
+    <h3>Cards</h3>
+  </div>
+</div>
+
+<div class="user-list" *ngIf="showUsers">
+  <app-error *ngIf="isError" [message]="message"></app-error>
+  <div class="g-box-container" *ngFor="let user of users">
+    <p>{{ user.email }}</p>
+    <p class="status red" *ngIf="user.isAdmin">Admin</p>
+    <button (click)="deleteUser(user.id ? user.id : -1)">Sil</button>
+  </div>
+</div>

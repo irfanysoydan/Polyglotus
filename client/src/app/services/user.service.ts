@@ -26,8 +26,8 @@ export class UserService {
     return this.http.get<ResponseModel>(this.usersUrl + id, httpOptions);
   }
 
-  getAllUsers(): Observable<ResponseModel[]> {
-    return this.http.get<ResponseModel[]>(this.usersUrl, httpOptions);
+  getAllUsers(): Observable<ResponseModel> {
+    return this.http.get<ResponseModel>(this.usersUrl, httpOptions);
   }
 
   deleteUser(id: number): Observable<ResponseModel> {

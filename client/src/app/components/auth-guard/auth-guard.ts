@@ -10,9 +10,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
-    if (this.localStore.getData('id') && this.localStore.getData('isAdmin') && this.localStore.getData('isAdmin') == "1" ? true : false) {
-      return true;
-    }
     if (this.localStore.getData('id')) {
       // logged in so return true
       return true;
