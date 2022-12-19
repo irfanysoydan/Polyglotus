@@ -26,10 +26,13 @@ header {
         height: 48px;
       }
       button {
-        color: $red;
         box-shadow: unset;
+        font-weight: 400;
         height: 48px;
         width: 150px;
+      }
+      .logout {
+        color: $red;
       }
     }
     .login {

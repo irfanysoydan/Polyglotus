@@ -1,1 +1,19 @@
-/*# sourceMappingURL=main-page.component.css.map */
+.main {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main h1 {
+  color: #6796e6;
+  margin-bottom: 50px;
+}
+.main .inputs {
+  width: 350px;
+  margin: 80px auto;
+}
+.main .inputs button {
+  margin-bottom: 30px;
+  color: #6796e6;
+}/*# sourceMappingURL=main-page.component.css.map */

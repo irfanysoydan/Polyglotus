@@ -28,10 +28,13 @@ header .g-width-80 .profile-section img {
   height: 48px;
 }
 header .g-width-80 .profile-section button {
-  color: #ff0000;
   box-shadow: unset;
+  font-weight: 400;
   height: 48px;
   width: 150px;
+}
+header .g-width-80 .profile-section .logout {
+  color: #ff0000;
 }
 header .g-width-80 .login {
   width: 15%;

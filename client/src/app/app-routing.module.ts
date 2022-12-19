@@ -16,11 +16,11 @@ import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent, canActivate: [AuthGuard],
   },
   {
-    path: 'main',
+    path: '',
     component: MainPageComponent
   },
   {
@@ -44,19 +44,19 @@ const routes: Routes = [
     component: AdminComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'deck',
+    path: 'home/deck',
     component: DeckComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'work-deck',
+    path: 'home/work-deck',
     component: WorkDeckComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'card',
+    path: 'home/card',
     component: CardComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'deck/create-card',
+    path: 'home/deck/create-card',
     component: CreateCardComponent, canActivate: [AuthGuard]
   },
   {
