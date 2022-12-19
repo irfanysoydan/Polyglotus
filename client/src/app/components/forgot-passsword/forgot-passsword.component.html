@@ -1,6 +1,7 @@
 <div class="forgot-password">
   <div class="g-box-container">
     <h2>Şifreni Yenile</h2>
+    <app-error *ngIf="isError" [message]="message"></app-error>
     <div class="inputs">
       <input type="text" placeholder="Email" #email />
     </div>

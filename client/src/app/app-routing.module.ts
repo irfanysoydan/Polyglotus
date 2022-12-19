@@ -33,11 +33,11 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    component: ForgotPassswordComponent, canActivate: [AuthGuard]
+    component: ForgotPassswordComponent
   },
   {
     path: 'resetPassword',
-    component: RenewPasswordComponent, canActivate: [AuthGuard]
+    component: RenewPasswordComponent
   },
   {
     path: 'admin',
