@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    component: MainPageComponent,
+    component: MainPageComponent
   },
   {
     path: 'login',
@@ -33,31 +33,31 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    component: ForgotPassswordComponent
+    component: ForgotPassswordComponent, canActivate: [AuthGuard]
   },
   {
     path: 'resetPassword',
-    component: RenewPasswordComponent
+    component: RenewPasswordComponent, canActivate: [AuthGuard]
   },
   {
     path: 'admin',
-    component: AdminComponent,
+    component: AdminComponent, canActivate: [AuthGuard]
   },
   {
     path: 'deck',
-    component: DeckComponent,
+    component: DeckComponent, canActivate: [AuthGuard]
   },
   {
     path: 'work-deck',
-    component: WorkDeckComponent,
+    component: WorkDeckComponent, canActivate: [AuthGuard]
   },
   {
     path: 'card',
-    component: CardComponent,
+    component: CardComponent, canActivate: [AuthGuard]
   },
   {
     path: 'deck/create-card',
-    component: CreateCardComponent,
+    component: CreateCardComponent, canActivate: [AuthGuard]
   },
   {
     path: '**',

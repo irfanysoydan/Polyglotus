@@ -30,7 +30,10 @@ export class LoginComponent implements OnInit {
           this.localStore.saveData("id", loginUser.id.toString());
           this.localStore.saveData("isAdmin", loginUser.isAdmin == true ? "1" : "0");
           this.localStore.saveData("token", loginUser.token);
-          this.router.navigate(['/']);
+          this.localStore.saveData("isLoggedIn", "1");
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
         }
       });
     }

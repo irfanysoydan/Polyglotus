@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Login } from '../models/login.model';
 import { User } from '../models/user.model';
 import { ResponseModel } from '../models/response.model';
+import { LocalService } from './local.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,14 +18,13 @@ const httpOptions = {
 })
 
 export class AuthService {
-
-  constructor(private http: HttpClient) { }
-
   baseServerUrl = environment.apiUrl + "auth/";
+  constructor(private http: HttpClient, private localStore: LocalService) { }
 
   loginUser(user: User): Observable<Login> {
     return this.http.post<Login>(this.baseServerUrl + "login", user, httpOptions);
   }
+
   registerUser(user: User): Observable<ResponseModel> {
     return this.http.post<ResponseModel>(this.baseServerUrl + "register", user, httpOptions);
   }
@@ -36,5 +36,4 @@ export class AuthService {
   resetPassword(pass: string, token: string): Observable<ResponseModel> {
     return this.http.post<ResponseModel>(this.baseServerUrl + "resetPassword?token=" + token, { password: pass }, httpOptions);
   }
-
 }
