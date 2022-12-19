@@ -20,6 +20,7 @@ import { AuthGuard } from './components/auth-guard/auth-guard';
 import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ErrorComponent } from './components/error/error.component';
+import { RoleGuardComponent } from './components/role-guard/role-guard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,14 +39,15 @@ import { ErrorComponent } from './components/error/error.component';
     ForgotPassswordComponent,
     RenewPasswordComponent,
     SpinnerComponent,
-    ErrorComponent
+    ErrorComponent,
+    RoleGuardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, RoleGuardComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
