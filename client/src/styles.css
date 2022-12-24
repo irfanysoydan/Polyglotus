@@ -96,10 +96,13 @@ textarea:focus {
   width: 100%;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   display: flex;
   align-items: flex-start;
   align-content: center;
   flex-wrap: wrap;
+=======
+>>>>>>> 31002cc0afdf6dd2dd7b86298a145f2863449d5c
   row-gap: 10px;
   overflow-y: scroll;
 }
