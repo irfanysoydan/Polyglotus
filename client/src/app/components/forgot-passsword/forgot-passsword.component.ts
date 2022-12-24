@@ -10,10 +10,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ForgotPassswordComponent {
   isError: boolean = false;
   message: string = "";
+  isSent: boolean = true;
   private emailRegex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
   constructor(private authService: AuthService) {
   }
-
+  //
   forgotPassword(email: string) {
     if (typeof email != 'undefined' && email.trim() != "") {
       if (!this.emailRegex.test(email)) {
@@ -23,15 +24,18 @@ export class ForgotPassswordComponent {
         this.authService.forgotPassword(email).subscribe(response => {
           if (response.isSuccessful) {
             this.isError = false;
+            this.isSent = true;
           } else {
             this.message = "Email gönderilemedi."
             this.isError = true;
+            this.isSent = false;
           }
         })
       }
     } else {
       this.message = "Email boş olamaz"
       this.isError = true;
+      this.isSent = false;
     }
   }
 }

@@ -1,5 +1,5 @@
 <div class="forgot-password">
-  <div class="g-box-container">
+  <div class="g-box-container" *ngIf="!isSent">
     <h2>Şifreni Yenile</h2>
     <app-error *ngIf="isError" [message]="message"></app-error>
     <div class="inputs">
@@ -8,5 +8,11 @@
     <button (click)="forgotPassword(email.value)">Kod gönder</button>
     <p>Hesabın var mı? <a href="login">Giriş Yap</a></p>
     <p>Hesabın yok mu? <a href="register">Kayıt Ol</a></p>
+  </div>
+  <div class="g-box-conotainer email-sent" *ngIf="isSent">
+    <h2>
+      Bu e-posta adresi altında kayıtlı bir hesabınız varsa, kısa süre içinde
+      bir şifre sıfırlama e-postası alacaksınız.
+    </h2>
   </div>
 </div>
