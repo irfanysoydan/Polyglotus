@@ -48,6 +48,7 @@ export class WorkDeckComponent {
   }
 
   nextCard(status: boolean) {
+    
     // if (this.cardId < this.cards.length - 2) {
     //   this.cardId += 2;
     //   this.selectedCardFront = this.cards[this.cardId];
