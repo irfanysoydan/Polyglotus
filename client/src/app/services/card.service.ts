@@ -30,9 +30,9 @@ export class CardService {
     return this.http.get<ResponseModel>(this.cardsUrl + id, httpOptions);
   }
 
-  getCardById(id: number): Observable<ResponseModel> {
-    return this.http.get<ResponseModel>(this.cardsUrl + id, httpOptions);
-  }
+  // getCardById(id: number): Observable<ResponseModel> {
+  //   return this.http.get<ResponseModel>(this.cardsUrl + id, httpOptions);
+  // }
 
   createCard(card: CreateCard): Observable<ResponseModel> {
     return this.http.post<ResponseModel>(this.cardsUrl, card, httpOptions);

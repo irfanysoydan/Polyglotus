@@ -14,10 +14,11 @@
       Ekle
     </button>
   </div>
-  <div class="card-list">
+  <div class="list">
     <div class="g-box-container" *ngFor="let card of cards">
       <p>{{ card.word }}</p>
-      <p class="status red">{{ card.status }}</p>
+      <p *ngIf="card.status" class="status green">Kolay</p>
+      <p *ngIf="!card.status" class="status red">Zor</p>
       <button (click)="deleteCard(card.id ? card.id : -1)">Sil</button>
     </div>
   </div>
