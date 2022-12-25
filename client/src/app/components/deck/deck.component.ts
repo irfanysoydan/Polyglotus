@@ -31,7 +31,7 @@ export class DeckComponent implements OnInit {
         }
       });
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     }
 
   }
