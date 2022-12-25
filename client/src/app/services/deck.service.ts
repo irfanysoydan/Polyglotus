@@ -41,8 +41,13 @@ export class DeckService {
         }
       }));
   }
+
+  getDeckStatsbyId(id: number) {
+    return this.http.get<ResponseModel>(this.decksUrl + id + "/status", httpOptions);
+  }
+
   createDeck(deck: Deck): Observable<ResponseModel> {
-    return this.http.post<ResponseModel>(this.decksUrl, deck, httpOptions)
+    return this.http.post<ResponseModel>(this.decksUrl, deck, httpOptions);
   }
 
   deleteDeck(id: number): Observable<ResponseModel> {
