@@ -66,31 +66,21 @@ class CardController {
       next(error);
     }
   };
-  updateCardById = async (req, res, next) => {
-    try {
-      const card = new UpdateCardDto(req.body);
-      const response = await db.Card.update(card, {
-        where: { id: card.id },
-      });
 
+  deleteCardById = async (req, res, next) => {
+    try {
+      const response = await db.Card.destroy({ where: { id: req.params.id } });
       if (!response)
         return res
           .status(HttpStatusCodes.OK)
-          .json(
-            ServiceResponse.fail(
-              HttpStatusCodes.NOT_FOUND,
-              "/cards/",
-              "Böyle bir kart bulunamadı."
-            )
-          );
-      res
-        .status(HttpStatusCodes.OK)
-        .json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/cards/", "Böyle bir kart bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
   };
-  deleteCardById = async (req, res, next) => {
+
+  updateCardStatus = async (req, res, next) => {
     try {
       const response = await db.Card.update({ status: req.body.status }, { where: { id: req.params.id } });
       const card = await db.Card.findOne({ where: { id: req.params.id } });
