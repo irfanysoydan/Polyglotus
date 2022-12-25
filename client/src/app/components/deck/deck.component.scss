@@ -46,10 +46,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      p.status.red {
+      p.red {
         color: $red;
       }
-      p.status.green {
+      p.green {
         color: $green_p30;
       }
       p {

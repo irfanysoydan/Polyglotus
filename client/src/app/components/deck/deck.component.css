@@ -48,11 +48,11 @@
   justify-content: space-between;
   align-items: center;
 }
-.deck-detail .list .g-box-container p.status.red {
+.deck-detail .list .g-box-container p.red {
   color: #ff0000;
 }
-.deck-detail .list .g-box-container p.status.green {
-  color: #00ff2b;
+.deck-detail .list .g-box-container p.green {
+  color: #55ff71;
 }
 .deck-detail .list .g-box-container p {
   margin-left: 30px;
