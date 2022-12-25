@@ -15,24 +15,11 @@ class UserController {
             model: db.Deck,
           },
         });
-        res
-          .status(HttpStatusCodes.OK)
-          .json(
-            ServiceResponse.successWithData(
-              new GetUserDto(user),
-              HttpStatusCodes.OK
-            )
-          );
+        res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetUserDto(user), HttpStatusCodes.OK));
       } else {
         return res
           .status(HttpStatusCodes.NOT_FOUND)
-          .json(
-            ServiceResponse.fail(
-              HttpStatusCodes.NOT_FOUND,
-              "/users/",
-              "Böyle bir kullanıcı bulunamadı."
-            )
-          );
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/users/", "Böyle bir kullanıcı bulunamadı."));
       }
     } catch (error) {
       next(error);
@@ -46,31 +33,38 @@ class UserController {
           model: db.Deck,
         },
       });
-      res
-        .status(HttpStatusCodes.OK)
-        .json(ServiceResponse.successWithData(users, HttpStatusCodes.OK));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(users, HttpStatusCodes.OK));
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   };
 
   updateUser = async (req, res, next) => {
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
-
     try {
-      await db.User.update(
-        {
-          fullName: req.body.fullName,
-          email: req.body.email,
-          password: hash,
-          isAdmin: req.body.isAdmin,
-        },
-        { where: { id: req.params.id } }
-      );
-      res
-        .status(HttpStatusCodes.OK)
-        .json(ServiceResponse.success(null, HttpStatusCodes.OK));
+      if (req.body.password) {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+        await db.User.update(
+          {
+            fullName: req.body.fullName,
+            email: req.body.email,
+            password: hash,
+            isAdmin: req.body.isAdmin,
+          },
+          { where: { id: req.params.id } }
+        );
+      } else {
+        await db.User.update(
+          {
+            fullName: req.body.fullName,
+            email: req.body.email,
+            isAdmin: req.body.isAdmin,
+          },
+          { where: { id: req.params.id } }
+        );
+      }
+
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -83,16 +77,8 @@ class UserController {
       if (!response)
         return res
           .status(HttpStatusCodes.OK)
-          .json(
-            ServiceResponse.fail(
-              HttpStatusCodes.NOT_FOUND,
-              "/users/",
-              "Böyle bir kullanıcı bulunamadı."
-            )
-          );
-      res
-        .status(HttpStatusCodes.OK)
-        .json(ServiceResponse.success(null, HttpStatusCodes.OK));
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/users/", "Böyle bir kullanıcı bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }

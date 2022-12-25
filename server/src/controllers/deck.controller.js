@@ -18,9 +18,7 @@ class DeckController {
       data.userId = req.user.id;
 
       const deck = await db.Deck.create(data);
-      res
-        .status(HttpStatusCodes.CREATED)
-        .json(ServiceResponse.successWithData(deck, HttpStatusCodes.CREATED));
+      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(deck, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -44,21 +42,8 @@ class DeckController {
       if (!deck)
         return res
           .status(HttpStatusCodes.OK)
-          .json(
-            ServiceResponse.fail(
-              HttpStatusCodes.NOT_FOUND,
-              "/decks/",
-              "Bu isimde bir deste bulunamadı."
-            )
-          );
-      res
-        .status(HttpStatusCodes.OK)
-        .json(
-          ServiceResponse.successWithData(
-            new GetDeckDto(deck),
-            HttpStatusCodes.OK
-          )
-        );
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Bu isimde bir deste bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetDeckDto(deck), HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -72,16 +57,8 @@ class DeckController {
       if (decks.length === 0)
         return res
           .status(HttpStatusCodes.OK)
-          .json(
-            ServiceResponse.fail(
-              HttpStatusCodes.NOT_FOUND,
-              "/decks/",
-              "Sisteme kayıtlı deste bulunamadı."
-            )
-          );
-      res
-        .status(HttpStatusCodes.OK)
-        .json(ServiceResponse.successWithData(decks, HttpStatusCodes.OK));
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Sisteme kayıtlı deste bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(decks, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -95,16 +72,46 @@ class DeckController {
       if (!response)
         return res
           .status(HttpStatusCodes.OK)
-          .json(
-            ServiceResponse.fail(
-              HttpStatusCodes.NOT_FOUND,
-              "/decks/",
-              "Böyle bir deste bulunamadı."
-            )
-          );
-      res
-        .status(HttpStatusCodes.OK)
-        .json(ServiceResponse.success(null, HttpStatusCodes.OK));
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Böyle bir deste bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getDeckStatsById = async (req, res, next) => {
+    let statusCount = 0;
+    try {
+      const deck = await db.Deck.findOne({
+        where: {
+          id: req.params.id,
+          userId: req.user.id,
+        },
+        include: {
+          model: db.Card,
+        },
+      });
+      deck.Cards.forEach((element) => {
+        if (element.status) {
+          statusCount++;
+        }
+      });
+      const percentage = (statusCount / deck.Cards.length) * 100;
+      if (percentage == 100) {
+        await db.Deck.update(
+          {
+            status: true,
+          },
+          { where: { id: req.params.id } }
+        );
+      } else {
+        await db.Deck.update({ status: false }, { where: { id: req.params.id } });
+      }
+      if (!deck)
+        return res
+          .status(HttpStatusCodes.OK)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Bu isimde bir deste bulunamadı."));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(percentage, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
