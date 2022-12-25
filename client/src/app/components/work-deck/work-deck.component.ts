@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Card } from 'src/app/models/card.model';
 import { Deck } from 'src/app/models/deck.model';
 import { WorkCard } from 'src/app/models/work-card.model';
@@ -36,6 +37,10 @@ export class WorkDeckComponent {
             workCard.front = frontCard;
             workCard.back = backCard;
             this.cards.push(workCard);
+
+          }
+          if (this.cards.length == 0) {
+            this.isEndOfTheDeck = true;
           }
           this.currentCard = this.getRandomCard();
         }
@@ -44,28 +49,19 @@ export class WorkDeckComponent {
   }
 
   getRandomCard(): WorkCard {
+    this.cards = this.cards.filter(c => c.front.id != this.currentCard.front.id);
     return this.cards[Math.floor(Math.random() * this.cards.length)];
   }
 
   nextCard(status: boolean) {
-    
-    // if (this.cardId < this.cards.length - 2) {
-    //   this.cardId += 2;
-    //   this.selectedCardFront = this.cards[this.cardId];
-    //   this.selectedCardBack = this.cards[++this.cardId];
-    //   this.showCard = true
-    //   this.selectedCardFront.status = status;
-    //   this.selectedCardBack.status = status;
-    //   this.cardService.updateCard(this.cardId, this.selectedCardFront).subscribe(response => {
-    //     console.log(response);
-
-    //     if (response.isSuccessful) {
-
-    //     }
-    //   });
-    // } else {
-    //   this.isEndOfTheDeck = true;
-    //   this.showCard = false;
-    // }
+    if (!this.isEndOfTheDeck) {
+      this.currentCard.front.status = status;
+      this.cardService.updateCardStatus(this.currentCard.front.id ? this.currentCard.front.id : -1, this.currentCard.front).subscribe(response => {
+        if (response.isSuccessful) {
+        }
+      });
+      this.showCard = true
+      this.currentCard = this.getRandomCard();
+    }
   }
 }

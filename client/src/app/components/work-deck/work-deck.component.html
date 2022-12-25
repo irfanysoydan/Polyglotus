@@ -10,10 +10,10 @@
     <h3>{{ currentCard.back.word }}</h3>
     <p>{{ currentCard.back.description }}</p>
   </div>
-  <button (click)="this.showCard = false" *ngIf="showCard">
+  <button (click)="this.showCard = false" *ngIf="showCard && !isEndOfTheDeck">
     Cevabı Göster
   </button>
-  <div class="answers" *ngIf="!showCard">
+  <div class="answers" *ngIf="!showCard && !isEndOfTheDeck">
     <button class="incorret" (click)="nextCard(false)">Zor</button>
     <button class="corret" (click)="nextCard(true)">Kolay</button>
   </div>

@@ -38,8 +38,8 @@ export class CardService {
     return this.http.post<ResponseModel>(this.cardsUrl, card, httpOptions);
   }
 
-  updateCard(id: number, card: Card): Observable<ResponseModel> {
-    return this.http.put<ResponseModel>(this.cardsUrl + id, card, httpOptions);
+  updateCardStatus(id: number, card: Card): Observable<ResponseModel> {
+    return this.http.put<ResponseModel>(this.cardsUrl + id + "/status", card, httpOptions);
   }
 
   deleteCard(id: number): Observable<ResponseModel> {
