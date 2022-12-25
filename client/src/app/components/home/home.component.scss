@@ -23,15 +23,14 @@
     }
   }
   .list {
-<<<<<<< HEAD
-    flex-direction: row;
-    padding: 126px 0;
-    column-gap: 60px;
-    row-gap: 70px;
-    overflow-y: hidden;
-=======
+    width: 100%;
     margin: 126px auto;
->>>>>>> 31002cc0afdf6dd2dd7b86298a145f2863449d5c
+    display: flex;
+    align-items: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    column-gap: 70px;
+    row-gap: 70px;
     .deck {
       width: 250px;
       height: 250px;
@@ -48,6 +47,7 @@
         }
         .deck-body {
           margin-top: 50px;
+          margin-left: 0;
           p:last-child {
             margin-top: 10px;
           }

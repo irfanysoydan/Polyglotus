@@ -21,7 +21,7 @@ export class CreateCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (!history.state.deck) {
-      this.router.navigate(['/deck'], { state: [{ deck: history.state.deck }] })
+      this.router.navigate(['/home/deck'], { state: [{ deck: history.state.deck }] })
     }
   }
 
@@ -57,7 +57,7 @@ export class CreateCardComponent implements OnInit {
       this.cardService.createCard(createCard).subscribe(response => {
         if (response.isSuccessful) {
           this.isError = false;
-          this.router.navigate(['/deck'], { state: [history.state] })
+          this.router.navigate(['/home/deck'], { state: [history.state] })
         } else {
           this.message = "Kart oluşturulamadı."
           this.isError = true;

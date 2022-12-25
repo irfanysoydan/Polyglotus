@@ -53,7 +53,7 @@ export class AdminComponent implements OnInit {
             this.userService.updateUserById(userId, user).subscribe(response => {
               if (response.isSuccessful) {
                 this.isError = false;
-                this.users = this.users.filter((user => user.id != userId));
+                this.users = this.users;
               } else {
                 this.message = "Kullanıcı güncellenemedi."
                 this.isError = true;

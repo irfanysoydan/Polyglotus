@@ -24,7 +24,38 @@
 }
 
 .list {
-  height: 250px;
+  width: 100%;
   margin-top: 80px;
-
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  .g-box-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p.status.red {
+      color: $red;
+    }
+    p.status.green {
+      color: $green_p30;
+    }
+    p {
+      margin-left: 30px;
+    }
+    .inputs {
+      display: flex;
+      button {
+        height: 48px;
+        width: 150px;
+        margin-right: 10px;
+        box-shadow: unset;
+        color: $red;
+      }
+      button:hover {
+        background-color: $red_o30;
+        color: white;
+      }
+    }
+  }
 }
