@@ -14,8 +14,7 @@ export class WorkDeckComponent {
   deckInfo: Deck = new Deck();
   cards: WorkCard[] = [];
   cardId: number = 0;
-  selectedCardFront: Card = new Card();
-  selectedCardBack: Card = new Card();
+  currentCard: WorkCard = new WorkCard();
   showCard: boolean = true;
   isEndOfTheDeck: boolean = false;
   ngOnInit(): void {
@@ -27,15 +26,18 @@ export class WorkDeckComponent {
     if (this.deckInfo) {
       this.cardService.getAllCardsByDeckId(this.deckInfo.id ? this.deckInfo.id : -1).subscribe(response => {
         if (response.isSuccessful) {
-          for (let i = 0; i < response.data.cards.length; i += 2) {
-            let workcard: WorkCard = new WorkCard();
-            workcard.front = response.data.cards[i];
-            workcard.back = response.data.cards[i + 1];
-
+          let allcards: Card[] = [];
+          allcards = response.data.cards;
+          allcards = allcards.filter(card => !card.status);
+          for (let i = 0; i < allcards.length; i += 2) {
+            let frontCard: Card = allcards[i];
+            let backCard: Card = allcards.filter(c => c.id == frontCard.meaningId)[0];
+            let workCard: WorkCard = new WorkCard();
+            workCard.front = frontCard;
+            workCard.back = backCard;
+            this.cards.push(workCard);
           }
-          // this.cards = response.data.cards;
-          // this.selectedCardFront = this.cards[0];
-          // this.selectedCardBack = this.cards[1];
+          this.currentCard = this.getRandomCard();
         }
       });
     }
@@ -46,9 +48,6 @@ export class WorkDeckComponent {
   }
 
   nextCard(status: boolean) {
-    // let currentCard: Card = this.cards[Math.floor(Math.random() * this.cards.length)];
-    //console.log(currentCard);
-
     // if (this.cardId < this.cards.length - 2) {
     //   this.cardId += 2;
     //   this.selectedCardFront = this.cards[this.cardId];
