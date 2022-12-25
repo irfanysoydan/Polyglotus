@@ -3,17 +3,17 @@
     <h3>Destenin sonu</h3>
   </div>
   <div class="g-box-container" *ngIf="!isEndOfTheDeck && showCard">
-    <h3>{{ selectedCardFront.word }}</h3>
-    <p>{{ selectedCardFront.description }}</p>
+    <h3>{{ currentCard.front.word }}</h3>
+    <p>{{ currentCard.front.description }}</p>
   </div>
   <div class="g-box-container" *ngIf="!isEndOfTheDeck && !showCard">
-    <h3>{{ selectedCardBack.word }}</h3>
-    <p>{{ selectedCardBack.description }}</p>
+    <h3>{{ currentCard.back.word }}</h3>
+    <p>{{ currentCard.back.description }}</p>
   </div>
-  <button (click)="this.showCard = false" *ngIf="showCard">
+  <button (click)="this.showCard = false" *ngIf="showCard && !isEndOfTheDeck">
     Cevabı Göster
   </button>
-  <div class="answers" *ngIf="!showCard">
+  <div class="answers" *ngIf="!showCard && !isEndOfTheDeck">
     <button class="incorret" (click)="nextCard(false)">Zor</button>
     <button class="corret" (click)="nextCard(true)">Kolay</button>
   </div>

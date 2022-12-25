@@ -2,7 +2,7 @@
 .deck-detail {
   width: 80%;
   margin: auto;
-  margin-bottom: 380px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,21 +30,26 @@
       font-weight: 600;
     }
   }
-  .card-list {
+  .list {
     width: 100%;
     margin-top: 80px;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    overflow-y: scroll;
+    height: 250px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 50px;
     .g-box-container {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      p.status.red {
+      p.red {
         color: $red;
       }
-      p.status.green {
+      p.green {
         color: $green_p30;
       }
       p {
