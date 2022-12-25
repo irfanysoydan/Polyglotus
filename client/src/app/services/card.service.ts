@@ -6,6 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { CreateCard } from '../models/create-card.model';
 import { ResponseModel } from '../models/response.model';
 import { LocalService } from './local.service';
+import { Card } from '../models/card.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -33,8 +34,12 @@ export class CardService {
     return this.http.get<ResponseModel>(this.cardsUrl + id, httpOptions);
   }
 
-  createCard(card: CreateCard,): Observable<ResponseModel> {
+  createCard(card: CreateCard): Observable<ResponseModel> {
     return this.http.post<ResponseModel>(this.cardsUrl, card, httpOptions);
+  }
+
+  updateCard(id: number, card: Card): Observable<ResponseModel> {
+    return this.http.put<ResponseModel>(this.cardsUrl + id, card, httpOptions);
   }
 
   deleteCard(id: number): Observable<ResponseModel> {

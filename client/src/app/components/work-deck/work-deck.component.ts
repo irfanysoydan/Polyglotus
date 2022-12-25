@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Card } from 'src/app/models/card.model';
 import { Deck } from 'src/app/models/deck.model';
+import { WorkCard } from 'src/app/models/work-card.model';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { CardService } from 'src/app/services/card.service';
 export class WorkDeckComponent {
   constructor(private cardService: CardService) { }
   deckInfo: Deck = new Deck();
-  cards: Card[] = [];
+  cards: WorkCard[] = [];
   cardId: number = 0;
   selectedCardFront: Card = new Card();
   selectedCardBack: Card = new Card();
@@ -26,31 +27,45 @@ export class WorkDeckComponent {
     if (this.deckInfo) {
       this.cardService.getAllCardsByDeckId(this.deckInfo.id ? this.deckInfo.id : -1).subscribe(response => {
         if (response.isSuccessful) {
-          this.cards = response.data;
-          this.selectedCardFront = this.cards[0];
-          this.selectedCardBack = this.cards[1];
+          for (let i = 0; i < response.data.cards.length; i += 2) {
+            let workcard: WorkCard = new WorkCard();
+            workcard.front = response.data.cards[i];
+            workcard.back = response.data.cards[i + 1];
+
+          }
+          // this.cards = response.data.cards;
+          // this.selectedCardFront = this.cards[0];
+          // this.selectedCardBack = this.cards[1];
         }
       });
     }
   }
 
-  nextCard(status: boolean) {
-    if (this.cardId < this.cards.length - 2) {
-      this.cardId += 2;
-      this.selectedCardFront = this.cards[this.cardId];
-      this.selectedCardBack = this.cards[++this.cardId];
+  getRandomCard(): WorkCard {
+    return this.cards[Math.floor(Math.random() * this.cards.length)];
+  }
 
-      this.showCard = true
-      if (status) {
-        this.selectedCardFront.status = true;
-        this.selectedCardBack.status = true;
-      } else {
-        this.selectedCardFront.status = false;
-        this.selectedCardBack.status = false;
-      }
-    } else {
-      this.isEndOfTheDeck = true;
-      this.showCard = false;
-    }
+  nextCard(status: boolean) {
+    // let currentCard: Card = this.cards[Math.floor(Math.random() * this.cards.length)];
+    //console.log(currentCard);
+
+    // if (this.cardId < this.cards.length - 2) {
+    //   this.cardId += 2;
+    //   this.selectedCardFront = this.cards[this.cardId];
+    //   this.selectedCardBack = this.cards[++this.cardId];
+    //   this.showCard = true
+    //   this.selectedCardFront.status = status;
+    //   this.selectedCardBack.status = status;
+    //   this.cardService.updateCard(this.cardId, this.selectedCardFront).subscribe(response => {
+    //     console.log(response);
+
+    //     if (response.isSuccessful) {
+
+    //     }
+    //   });
+    // } else {
+    //   this.isEndOfTheDeck = true;
+    //   this.showCard = false;
+    // }
   }
 }
