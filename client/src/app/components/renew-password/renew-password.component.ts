@@ -11,6 +11,7 @@ export class RenewPasswordComponent {
   paramsObject: any;
   token: string = "";
   isError: boolean = false;
+  isSent: boolean = false;
   message: string = "";
   constructor(private authService: AuthService, private route: ActivatedRoute) { }
 
@@ -31,10 +32,11 @@ export class RenewPasswordComponent {
         this.token = this.paramsObject.params.token;
         this.authService.resetPassword(pass, this.token).subscribe(response => {
           if (response.isSuccessful) {
-
+            this.isSent = true;
           } else {
             this.message = " Şifre değiştirilemedi"
             this.isError = true;
+            this.isSent = false;
           }
         });
       }
