@@ -1,5 +1,5 @@
 const CardController = require("../controllers/card.controller");
-const { createAndGetAllCard, getAndDeleteCard } = require("../middlewares/verifyToken");
+const { createAndGetAllCard, getUpdateAndDeleteCard } = require("../middlewares/verifyToken");
 const { check } = require("express-validator");
 const CardRouter = require("express").Router();
 
@@ -10,8 +10,9 @@ CardRouter.post(
   createAndGetAllCard,
   CardController.createCard
 );
-CardRouter.get("/card/:id", getAndDeleteCard, CardController.getCardById);
+CardRouter.get("/card/:id", getUpdateAndDeleteCard, CardController.getCardById);
 CardRouter.get("/:deckId", createAndGetAllCard, CardController.getAllCardsByDeckId);
-CardRouter.delete("/:id", getAndDeleteCard, CardController.deleteCardById);
+CardRouter.delete("/:id", getUpdateAndDeleteCard, CardController.deleteCardById);
+CardRouter.put("/:id/status", getUpdateAndDeleteCard, CardController.updateCardStatus);
 
 module.exports = CardRouter;

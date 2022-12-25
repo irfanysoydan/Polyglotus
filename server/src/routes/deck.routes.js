@@ -10,5 +10,6 @@ DeckRouter.post(
 DeckRouter.get("/:id", DeckController.getDeckById);
 DeckRouter.get("/", DeckController.getAllDecks);
 DeckRouter.delete("/:id", DeckController.deleteDeck);
+DeckRouter.get("/:id/status", DeckController.getDeckStatsById);
 
 module.exports = DeckRouter;

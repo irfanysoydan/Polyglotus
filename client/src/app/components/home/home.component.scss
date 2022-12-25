@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  text-align: center;
   .exception {
     color: $red;
     width: 100%;
@@ -21,7 +22,7 @@
       width: 20%;
     }
   }
-  .list-deck {
+  .list {
     width: 100%;
     margin: 126px auto;
     display: flex;
@@ -46,6 +47,7 @@
         }
         .deck-body {
           margin-top: 50px;
+          margin-left: 0;
           p:last-child {
             margin-top: 10px;
           }
@@ -58,6 +60,12 @@
         button {
           width: 45%;
           box-shadow: unset;
+        }
+        :last-child {
+          color: $blue_p;
+        }
+        :last-child:hover {
+          background-color: $blue_s;
         }
         .deck-delete {
           color: $red;

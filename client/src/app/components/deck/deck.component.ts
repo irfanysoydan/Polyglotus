@@ -26,12 +26,12 @@ export class DeckComponent implements OnInit {
     if (this.deckInfo) {
       this.cardService.getAllCardsByDeckId(this.deckInfo.id ? this.deckInfo.id : -1).subscribe(response => {
         if (response.isSuccessful) {
-          this.cards = response.data;
+          this.cards = response.data.cards;
           this.cards = this.cards.filter(p => p.id != (p.meaningId ? p.meaningId + 1 : p.meaningId));
         }
       });
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     }
 
   }

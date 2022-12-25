@@ -12,13 +12,10 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
+import { RoleGuardComponent } from './components/role-guard/role-guard.component';
 import { WorkDeckComponent } from './components/work-deck/work-deck.component';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent, canActivate: [AuthGuard],
-  },
   {
     path: '',
     component: MainPageComponent
@@ -40,8 +37,12 @@ const routes: Routes = [
     component: RenewPasswordComponent
   },
   {
+    path: 'home',
+    component: HomeComponent, canActivate: [AuthGuard],
+  },
+  {
     path: 'admin',
-    component: AdminComponent, canActivate: [AuthGuard]
+    component: AdminComponent, canActivate: [RoleGuardComponent]
   },
   {
     path: 'home/deck',

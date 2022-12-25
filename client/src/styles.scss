@@ -9,10 +9,15 @@ html {
   font-family: "Montserrat";
   transition: all 0.5s ease;
 }
-
+html,
 body {
-  width: 100%;
-  margin: auto;
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
   font-size: 20px;
   font-weight: 400;
   color: $gray_p;
@@ -77,6 +82,13 @@ textarea {
 input:focus,
 textarea:focus {
   outline: none;
+}
+
+.root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .g-box-container {

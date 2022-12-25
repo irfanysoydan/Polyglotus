@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import RenewPasswordComponent from './renew-password.component';
+import { RenewPasswordComponent } from './renew-password.component'; './renew-password.component';
 
 describe('RenewPasswordComponent', () => {
   let component: RenewPasswordComponent;

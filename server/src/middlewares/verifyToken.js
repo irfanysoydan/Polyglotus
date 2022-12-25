@@ -30,7 +30,7 @@ const createAndGetAllCard = (req, res, next) => {
   });
 };
 
-const getAndDeleteCard = (req, res, next) => {
+const getUpdateAndDeleteCard = (req, res, next) => {
   verifyToken(req, res, async () => {
     const card = await db.Card.findOne({
       where: { id: req.params.id },
@@ -53,4 +53,9 @@ const verifyAdmin = (req, res, next) => {
   });
 };
 
-module.exports = { verifyToken, createAndGetAllCard, getAndDeleteCard, verifyAdmin };
+module.exports = {
+  verifyToken,
+  createAndGetAllCard,
+  getUpdateAndDeleteCard,
+  verifyAdmin,
+};

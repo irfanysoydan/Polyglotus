@@ -14,10 +14,12 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
   fullname: string = "";
   isLogin: boolean = false;
+  isAdmin: boolean = false;
   constructor(private authService: AuthService, private userService: UserService, private router: Router, private localStore: LocalService) { }
 
   ngOnInit(): void {
     this.isLogin = this.localStore.getData("isLoggedIn") == "1" ? true : false;
+    this.isAdmin = this.localStore.getData("isAdmin") == "1" ? true : false;
     if (this.isLogin) {
       this.userService.getUserById(Number(this.localStore.getData("id"))).subscribe(response => {
         if (response.isSuccessful) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Deck } from 'src/app/models/deck.model';
+import { DeckInfoService } from 'src/app/services/deck-info/deck-info.service';
 import { DeckService } from 'src/app/services/deck.service';
 import { LoaderService } from 'src/app/services/loader.service';
 @Component({
@@ -8,13 +9,14 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  decks: any[] = [];
+  decks: Deck[] = [];
   isError: boolean = false;
   message: string = "";
-  constructor(private deckService: DeckService, private loader: LoaderService) { }
+  constructor(private deckService: DeckService, private deckInfo: DeckInfoService, private loader: LoaderService) { }
 
   ngOnInit(): void {
     this.getDecks();
+
   }
   AddDeck(deckName: string) {
     if (deckName.trim() != '') {
@@ -40,6 +42,10 @@ export class HomeComponent implements OnInit {
     this.deckService.getDecks().subscribe(response => {
       if (response.isSuccessful) {
         this.decks = response.data;
+        this.decks.forEach(deck => {
+          this.deckInfo.getCardCount(deck)
+          deck.cardCount = this.deckInfo.cardCount;
+        })
       } else {
         this.decks = [];
       }

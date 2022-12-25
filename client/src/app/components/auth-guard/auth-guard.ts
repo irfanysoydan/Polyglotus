@@ -9,10 +9,6 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private localStore: LocalService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if (this.localStore.getData('id') && this.localStore.getData('isAdmin') == '1') {
-      this.router.navigate(['/admin'], { queryParams: { returnUrl: state.url } });
-      return true;
-    }
 
     if (this.localStore.getData('id')) {
       // logged in so return true
