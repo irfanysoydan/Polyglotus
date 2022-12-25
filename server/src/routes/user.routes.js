@@ -3,7 +3,7 @@ const { verifyAdmin, verifyToken } = require("../middlewares/verifyToken");
 const UserRouter = require("express").Router();
 UserRouter.get("/", verifyAdmin, UserController.getAllUsers);
 UserRouter.get("/:id", verifyToken, UserController.getUserById);
-UserRouter.put("/:id", verifyAdmin, UserController.updateUser);
+UserRouter.put("/:id", verifyAdmin, UserController.updateUserRole);
 UserRouter.delete("/:id", verifyAdmin, UserController.deleteUser);
 
 module.exports = UserRouter;

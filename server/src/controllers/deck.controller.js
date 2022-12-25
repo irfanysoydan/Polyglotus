@@ -4,6 +4,7 @@ const CreateDeckDto = require("../dtos/deck/CreateDeck.dto");
 const GetDeckDto = require("../dtos/deck/GetDeck.dto");
 const HttpStatusCodes = require("http-status-codes");
 const { ServiceResponse } = require("../common/serviceResponse");
+const services = require("../services/index.services");
 
 const db = require("../models");
 
@@ -17,7 +18,7 @@ class DeckController {
       const data = new CreateDeckDto(req.body);
       data.userId = req.user.id;
 
-      const deck = await db.Deck.create(data);
+      const deck = await services.deck.create(data);
       res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(deck, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
@@ -26,19 +27,7 @@ class DeckController {
 
   getDeckById = async (req, res, next) => {
     try {
-      const deck = await db.Deck.findOne({
-        where: {
-          id: req.params.id,
-          userId: req.user.id,
-        },
-        include: {
-          model: db.Card,
-          include: {
-            as: "Meaning",
-            model: db.Card,
-          },
-        },
-      });
+      const deck = await services.deck.getById(req.params.id, req.user.id);
       if (!deck)
         return res
           .status(HttpStatusCodes.OK)
@@ -51,9 +40,7 @@ class DeckController {
 
   getAllDecks = async (req, res, next) => {
     try {
-      const decks = await db.Deck.findAll({
-        where: { userId: req.user.id },
-      });
+      const decks = await services.deck.getAll(req.user.id);
       if (decks.length === 0)
         return res
           .status(HttpStatusCodes.OK)
@@ -66,9 +53,7 @@ class DeckController {
 
   deleteDeck = async (req, res, next) => {
     try {
-      const response = await db.Deck.destroy({
-        where: { id: req.params.id, userId: req.user.id },
-      });
+      const response = await services.deck.delete(req.params.id, req.user.id);
       if (!response)
         return res
           .status(HttpStatusCodes.OK)
@@ -81,37 +66,29 @@ class DeckController {
 
   getDeckStatsById = async (req, res, next) => {
     let statusCount = 0;
+    let percentage = 0;
+    const id = req.params.id;
     try {
-      const deck = await db.Deck.findOne({
-        where: {
-          id: req.params.id,
-          userId: req.user.id,
-        },
-        include: {
-          model: db.Card,
-        },
-      });
+      const deck = await services.deck.getById(id, req.user.id);
       deck.Cards.forEach((element) => {
         if (element.status) {
           statusCount++;
         }
       });
-      const percentage = (statusCount / deck.Cards.length) * 100;
+      if (deck.Cards.length !== 0) {
+        percentage = Math.floor((statusCount / deck.Cards.length) * 100);
+      }
+      const data = { percentage };
       if (percentage == 100) {
-        await db.Deck.update(
-          {
-            status: true,
-          },
-          { where: { id: req.params.id } }
-        );
+        await services.deck.updateStatus(id, true);
       } else {
-        await db.Deck.update({ status: false }, { where: { id: req.params.id } });
+        await services.deck.updateStatus(id, false);
       }
       if (!deck)
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Bu isimde bir deste bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(percentage, HttpStatusCodes.OK));
+      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(data, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
