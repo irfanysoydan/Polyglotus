@@ -3,6 +3,8 @@ const CreateCardDto = require("../dtos/card/CreateCard.dto");
 const GetCardDto = require("../dtos/card/GetCard.dto");
 const HttpStatusCodes = require("http-status-codes");
 const { ServiceResponse } = require("../common/serviceResponse");
+const services = require("../services/index.services");
+
 const db = require("../models");
 class CardController {
   createCard = async (req, res, next) => {
@@ -16,21 +18,12 @@ class CardController {
       front.deckId = req.body.deckId;
       back.deckId = req.body.deckId;
 
-      const cardFront = await db.Card.create(front);
-      const cardBack = await db.Card.create(back);
+      const cardFront = await services.card.create(front);
+      const cardBack = await services.card.create(back);
 
-      await db.Card.update(
-        { meaningId: cardBack.id },
-        {
-          where: { id: cardFront.id },
-        }
-      );
-      await db.Card.update(
-        { meaningId: cardFront.id },
-        {
-          where: { id: cardBack.id },
-        }
-      );
+      await services.card.updateMeaning(cardFront.id, cardBack.id);
+      await services.card.updateMeaning(cardBack.id, cardFront.id);
+
       const cards = { front: cardFront, back: cardBack };
       res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
     } catch (error) {
@@ -40,12 +33,7 @@ class CardController {
 
   getCardById = async (req, res, next) => {
     try {
-      const card = await db.Card.findOne({
-        where: {
-          id: req.params.id,
-        },
-        include: [{ as: "Meaning", model: db.Card }],
-      });
+      const card = await services.card.getById(req.params.id);
       res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetCardDto(card), HttpStatusCodes.OK));
     } catch (error) {
       next(error);
@@ -54,13 +42,9 @@ class CardController {
 
   getAllCardsByDeckId = async (req, res, next) => {
     try {
-      const { count, rows } = await db.Card.findAndCountAll({
-        where: {
-          deckId: req.params.deckId,
-        },
-      });
+      const { count, rows } = await services.card.getAllByDeckId(req.params.deckId);
 
-      const cardsData = { count: count, cards: rows };
+      const cardsData = { count: count / 2, cards: rows };
       res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(cardsData, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
@@ -69,7 +53,7 @@ class CardController {
 
   deleteCardById = async (req, res, next) => {
     try {
-      const response = await db.Card.destroy({ where: { id: req.params.id } });
+      const response = await services.card.delete(req.params.id);
       if (!response)
         return res
           .status(HttpStatusCodes.OK)
@@ -81,11 +65,12 @@ class CardController {
   };
 
   updateCardStatus = async (req, res, next) => {
+    const status = req.body.status;
     try {
-      const response = await db.Card.update({ status: req.body.status }, { where: { id: req.params.id } });
-      const card = await db.Card.findOne({ where: { id: req.params.id } });
-      await db.Card.update({ status: req.body.status }, { where: { id: card.meaningId } });
-      if (!response || !card)
+      await services.card.updateStatus(req.params.id, status);
+      const card = await services.card.getById(req.params.id);
+      await services.card.updateStatus(card.meaningId, status);
+      if (!card)
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/cards/", "Böyle bir kart bulunamadı."));
