@@ -3,7 +3,8 @@
     <div class="logo" routerLink="/">Polyglotus</div>
     <div class="profile-section" *ngIf="isLogin">
       <p>{{ fullname }}</p>
-      <button routerLink="home">Destelerim</button>
+      <button routerLink="admin" *ngIf="isAdmin">Admin Panel</button>
+      <button routerLink="home" *ngIf="!isAdmin">Destelerim</button>
       <div class="profile-picture">
         <img
           src="assets/images/icons8-circled-user-male-skin-type-5-96.png"

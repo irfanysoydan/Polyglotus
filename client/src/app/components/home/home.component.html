@@ -4,7 +4,7 @@
     <input type="text" placeholder="Deste Adı" #deckname />
     <button (click)="AddDeck(deckname.value)">Deste Oluştur</button>
   </div>
-  <div class="list-deck">
+  <div class="list">
     <div *ngFor="let deck of decks" class="g-box-container deck">
       <div
         [routerLink]="'work-deck'"

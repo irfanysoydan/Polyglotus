@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  text-align: center;
   .exception {
     color: $red;
     width: 100%;
@@ -21,15 +22,13 @@
       width: 20%;
     }
   }
-  .list-deck {
-    width: 100%;
-    margin: 126px auto;
-    display: flex;
-    align-items: flex-start;
-    align-content: center;
-    flex-wrap: wrap;
-    column-gap: 70px;
+  .list {
+    flex-direction: row;
+    padding: 126px 0;
+    column-gap: 60px;
     row-gap: 70px;
+    overflow-y: hidden;
+    flex-wrap: wrap;
     .deck {
       width: 250px;
       height: 250px;
@@ -46,6 +45,7 @@
         }
         .deck-body {
           margin-top: 50px;
+          margin-left: 0;
           p:last-child {
             margin-top: 10px;
           }
@@ -58,6 +58,12 @@
         button {
           width: 45%;
           box-shadow: unset;
+        }
+        :last-child {
+          color: $blue_p;
+        }
+        :last-child:hover {
+          background-color: $blue_s;
         }
         .deck-delete {
           color: $red;
