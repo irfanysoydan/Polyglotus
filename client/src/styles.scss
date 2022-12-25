@@ -84,6 +84,13 @@ textarea:focus {
   outline: none;
 }
 
+.root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .g-box-container {
   background-color: white;
   box-shadow: rgba(149, 157, 165, 0.2) 8px 8px 24px;
