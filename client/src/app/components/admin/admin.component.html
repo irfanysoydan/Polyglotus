@@ -1,24 +1,54 @@
 <div class="operations">
-  <div class="g-box-container">
+  <!-- <div class="g-box-container">
     <h3>Users</h3>
     <button (click)="getUserList()">Kullanıcı Listesi</button>
-  </div>
-  <div class="g-box-container">
+  </div> -->
+  <!-- <div class="g-box-container">
     <h3>Decks</h3>
   </div>
   <div class="g-box-container">
     <h3>Cards</h3>
-  </div>
+  </div> -->
 </div>
 
-<div class="list" *ngIf="showUsers">
+<div class="list">
   <app-error *ngIf="isError" [message]="message"></app-error>
   <div class="g-box-container" *ngFor="let user of users">
     <p>{{ user.email }}</p>
     <p class="status red" *ngIf="user.isAdmin">Admin</p>
     <div class="inputs">
-      <button (click)="updateUser(user.id ? user.id : -1)">Admin Yap</button>
-      <button (click)="deleteUser(user.id ? user.id : -1)">Sil</button>
+      <button
+        [swal]="updateSwal"
+        (confirm)="updateUser(user.id ? user.id : -1)"
+      >
+        Admin Yap
+      </button>
+      <button
+        [swal]="deleteSwal"
+        (confirm)="deleteUser(user.id ? user.id : -1)"
+      >
+        Sil
+      </button>
     </div>
   </div>
 </div>
+<swal
+  #deleteSwal
+  title="Emin misiniz?"
+  text="Silmek istediğiniz veri geri alınamaz."
+  type="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  [swalOptions]="{ confirmButtonText: 'Onayla' }"
+>
+</swal>
+<swal
+  #updateSwal
+  title="Emin misiniz?"
+  text="Bu kullanıcının rolünü admin yapmak üzeresiniz bu işlem geri alınamaz!"
+  type="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  [swalOptions]="{ confirmButtonText: 'Onayla' }"
+>
+</swal>

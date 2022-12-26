@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Deck } from 'src/app/models/deck.model';
 import { DeckInfoService } from 'src/app/services/deck-info/deck-info.service';
 import { DeckService } from 'src/app/services/deck.service';
+import { DataService } from 'src/app/services/generic-data-service/data.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,7 +15,7 @@ export class HomeComponent implements OnInit {
   decks: Deck[] = [];
   isError: boolean = false;
   message: string = "";
-  constructor(private deckService: DeckService, private deckInfo: DeckInfoService, private loader: LoaderService) { }
+  constructor(private deckService: DeckService, private deckInfo: DeckInfoService, private loader: LoaderService, private router: Router, private dataService: DataService<Deck>) { }
 
   ngOnInit(): void {
     this.getDecks();
@@ -29,16 +32,25 @@ export class HomeComponent implements OnInit {
           this.isError = false;
           this.decks.push(response.data);
           this.getDecks();
+          Swal.fire(
+            'Kayıt Başarılı',
+            'Deste başarılı bir şekilde oluşturuldu!',
+            'success'
+          )
         } else {
           this.message = "Deste oluşturulamadı"
           this.isError = true;
+          Swal.fire(
+            'Hata',
+            'Deste oluşturulurken hata oluştu!',
+            'warning'
+          )
         }
       });
     } else {
       this.message = "Deste adı boş olamaz."
       this.isError = true;
     }
-
   }
   getDecks() {
     this.loader.setLoading(true);
@@ -74,4 +86,9 @@ export class HomeComponent implements OnInit {
       this.isError = true;
     }
   }
+  navigateDetails(deck: Deck) {
+    // this.dataService.sendData(deck);
+    this.router.navigate(['home/deck'], { state: { deck: deck } });
+  }
 }
+

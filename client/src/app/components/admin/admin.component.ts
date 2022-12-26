@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   constructor(private userService: UserService, private deckService: DeckService, private loader: LoaderService, private localStore: LocalService) { }
 
   ngOnInit(): void {
-    // this.getUsers();
+    this.getUsers();
   }
   getUserList() {
     this.showUsers = true;

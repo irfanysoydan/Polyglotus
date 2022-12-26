@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Card } from 'src/app/models/card.model';
 import { CreateCard } from 'src/app/models/create-card.model';
 import { CardService } from 'src/app/services/card.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-card',
@@ -57,7 +58,12 @@ export class CreateCardComponent implements OnInit {
       this.cardService.createCard(createCard).subscribe(response => {
         if (response.isSuccessful) {
           this.isError = false;
-          this.router.navigate(['/home/deck'], { state: [history.state] })
+          Swal.fire(
+            'Kayıt Başarılı',
+            'Kart başarılı bir şekilde oluşturuldu!',
+            'success'
+          )
+          this.router.navigate(['/home/deck'], { state: { deck: history.state.deck } })
         } else {
           this.message = "Kart oluşturulamadı."
           this.isError = true;

@@ -8,8 +8,10 @@ import { DeckService } from '../deck.service';
   providedIn: 'root'
 })
 export class DeckInfoService {
+
   public cardCount = new BehaviorSubject<number>(0);
   public deckStatus = new BehaviorSubject<number>(0);
+
   constructor(private cardService: CardService, private deckService: DeckService) { }
 
   getCardCount(deck: Deck): void {
