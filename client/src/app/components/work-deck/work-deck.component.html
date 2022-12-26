@@ -7,6 +7,9 @@
     <p>{{ currentCard.front.description }}</p>
   </div>
   <div class="g-box-container" *ngIf="!isEndOfTheDeck && !showCard">
+    <a (click)="showCard = true"
+      ><img src="../../../assets/images/icons8-up-left-64.png"
+    /></a>
     <h3>{{ currentCard.back.word }}</h3>
     <p>{{ currentCard.back.description }}</p>
   </div>
