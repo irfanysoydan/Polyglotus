@@ -1,8 +1,10 @@
 <div class="deck-detail">
   <app-error *ngIf="isError" [message]="message"></app-error>
   <div class="update-deck">
-    <input type="text" value="{{ deckInfo.name }}" />
-    <button>Güncelle</button>
+    <input type="text" [value]="deckInfo.name" />
+    <button [swal]="['Oops!', 'Yapım aşamasında :/', 'warning']">
+      Güncelle
+    </button>
   </div>
   <div class="deck-title">
     <h4>Kartlar</h4>
@@ -19,7 +21,22 @@
       <p>{{ card.word }}</p>
       <p *ngIf="card.status" class="green">Kolay</p>
       <p *ngIf="!card.status" class="red">Zor</p>
-      <button (click)="deleteCard(card.id ? card.id : -1)">Sil</button>
+      <button
+        [swal]="deleteSwal"
+        (confirm)="deleteCard(card.id ? card.id : -1)"
+      >
+        Sil
+      </button>
     </div>
   </div>
 </div>
+<swal
+  #deleteSwal
+  title="Emin misiniz?"
+  text="Silmek istediğiniz veri geri alınamaz."
+  type="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  [swalOptions]="{ confirmButtonText: 'Onayla' }"
+>
+</swal>

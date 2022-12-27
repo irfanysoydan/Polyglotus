@@ -16,13 +16,24 @@
         </div>
         <div class="deck-body">
           <p>{{ deck.cardCount }} Kart içeriyor</p>
-          <p>{{ deck.deckPercentage }}% Tamamlandı</p>
+          <p>{{ deck.percentage }}% Tamamlandı</p>
         </div>
       </div>
       <div class="deck-footer">
         <button class="deck-delete" (click)="deleteDeck(deck.id)">Sil</button>
-        <button [routerLink]="'deck'" [state]="{ deck: deck }">Detaylar</button>
+
+        <button (click)="navigateDetails(deck)">Detaylar</button>
       </div>
     </div>
   </div>
 </div>
+<!-- <swal
+  #deleteSwal
+  title="Emin misiniz?"
+  text="Silmek istediğiniz veri geri alınamaz."
+  type="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  [swalOptions]="{ confirmButtonText: 'Onayla' }"
+>
+</swal> -->

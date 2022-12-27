@@ -21,6 +21,8 @@ import { RenewPasswordComponent } from './components/renew-password/renew-passwo
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RoleGuardComponent } from './components/role-guard/role-guard.component';
+import { FormsModule } from '@angular/forms';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { RoleGuardComponent } from './components/role-guard/role-guard.component
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [AuthGuard, RoleGuardComponent],
   bootstrap: [AppComponent]

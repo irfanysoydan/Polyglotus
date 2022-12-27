@@ -25,7 +25,9 @@ class CardController {
       await services.card.updateMeaning(cardBack.id, cardFront.id);
 
       const cards = { front: cardFront, back: cardBack };
-      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
+      res
+        .status(HttpStatusCodes.CREATED)
+        .json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -34,7 +36,14 @@ class CardController {
   getCardById = async (req, res, next) => {
     try {
       const card = await services.card.getById(req.params.id);
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetCardDto(card), HttpStatusCodes.OK));
+      res
+        .status(HttpStatusCodes.OK)
+        .json(
+          ServiceResponse.successWithData(
+            new GetCardDto(card),
+            HttpStatusCodes.OK
+          )
+        );
     } catch (error) {
       next(error);
     }
@@ -42,10 +51,14 @@ class CardController {
 
   getAllCardsByDeckId = async (req, res, next) => {
     try {
-      const { count, rows } = await services.card.getAllByDeckId(req.params.deckId);
+      const { count, rows } = await services.card.getAllByDeckId(
+        req.params.deckId
+      );
 
       const cardsData = { count: count / 2, cards: rows };
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(cardsData, HttpStatusCodes.OK));
+      res
+        .status(HttpStatusCodes.OK)
+        .json(ServiceResponse.successWithData(cardsData, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -57,8 +70,16 @@ class CardController {
       if (!response)
         return res
           .status(HttpStatusCodes.OK)
-          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/cards/", "Böyle bir kart bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
+          .json(
+            ServiceResponse.fail(
+              HttpStatusCodes.NOT_FOUND,
+              "/cards/",
+              "Böyle bir kart bulunamadı."
+            )
+          );
+      res
+        .status(HttpStatusCodes.OK)
+        .json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -73,8 +94,16 @@ class CardController {
       if (!card)
         return res
           .status(HttpStatusCodes.OK)
-          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/cards/", "Böyle bir kart bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+          .json(
+            ServiceResponse.fail(
+              HttpStatusCodes.NOT_FOUND,
+              "/cards/",
+              "Böyle bir kart bulunamadı."
+            )
+          );
+      res
+        .status(HttpStatusCodes.OK)
+        .json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }

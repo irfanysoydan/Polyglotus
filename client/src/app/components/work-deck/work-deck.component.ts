@@ -5,6 +5,7 @@ import { Card } from 'src/app/models/card.model';
 import { Deck } from 'src/app/models/deck.model';
 import { WorkCard } from 'src/app/models/work-card.model';
 import { CardService } from 'src/app/services/card.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-work-deck',
@@ -43,7 +44,7 @@ export class WorkDeckComponent {
         }
       });
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['home']);
     }
   }
 
@@ -51,6 +52,13 @@ export class WorkDeckComponent {
     this.cards = this.cards.filter(c => c.front.status == false);
     if (this.cards.length == 0) {
       this.isEndOfTheDeck = true;
+      Swal.fire(
+        'Tebrikler!',
+        'Tüm desteyi öğrendiniz!',
+        'success'
+      ).then(() => {
+        this.router.navigate(['/home']);
+      });
     }
     return this.cards[Math.floor(Math.random() * this.cards.length)];
   }
@@ -66,6 +74,7 @@ export class WorkDeckComponent {
       });
     } else {
       this.isEndOfTheDeck = true;
+
     }
   }
 }

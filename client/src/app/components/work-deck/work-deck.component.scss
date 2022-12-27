@@ -3,6 +3,7 @@
   width: 350px;
   margin: 150px auto;
   .g-box-container {
+    position: relative;
     height: 450px;
     display: flex;
     flex-direction: column;
@@ -14,6 +15,14 @@
       text-align: center;
       margin-top: 50px;
       padding: 0 50px;
+    }
+    img {
+      flex-shrink: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 48px;
+      cursor: pointer;
     }
   }
   button {

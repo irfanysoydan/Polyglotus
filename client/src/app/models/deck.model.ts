@@ -6,5 +6,5 @@ export class Deck {
   createdAt?: Date;
   updateAt?: Date;
   cardCount: number = 0;
-  deckPercentage: number = 0;
+  percentage: number = 0;
 }
