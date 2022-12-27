@@ -25,12 +25,6 @@ export class AdminComponent implements OnInit {
     this.getUsers();
   }
 
-  getAlldecks() {
-    this.deckService.getDecks().subscribe(resonse => {
-      console.log(resonse.data);
-    });
-  }
-
   getUsers() {
     this.userService.getAllUsers().subscribe(response => {
       if (response.isSuccessful) {
@@ -42,6 +36,7 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+  
   updateUser(userId: number) {
     if (userId != null) {
       if (Number(this.localStore.getData("id")) != userId) {

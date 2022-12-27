@@ -11,10 +11,8 @@ import { LocalService } from 'src/app/services/local.service';
 export class RoleGuardComponent implements CanActivate {
   constructor(public router: Router, private localStore: LocalService) { }
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (
-      this.localStore.getData("isAdmin") != "1" ? true : false
-    ) {
-      this.router.navigate(['home']);
+    if (this.localStore.getData("isAdmin") != "1") {
+      this.router.navigate(['home']).then(() => { window.location.reload(); });
       return false;
     }
     return true;

@@ -65,6 +65,11 @@ export class CreateCardComponent implements OnInit {
           )
           this.router.navigate(['/home/deck'], { state: { deck: history.state.deck } })
         } else {
+          Swal.fire(
+            'Kayıt Başarısız!',
+            'Kart oluşturulamadı!',
+            'error'
+          )
           this.message = "Kart oluşturulamadı."
           this.isError = true;
         }

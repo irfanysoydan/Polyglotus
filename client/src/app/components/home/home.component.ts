@@ -22,16 +22,17 @@ export class HomeComponent implements OnInit {
 
   }
   AddDeck(deckName: string) {
+    this.loader.setLoading(true);
     if (deckName.trim() != '') {
       let deck: Deck = new Deck();
       deck.name = deckName;
-      deck.cardCount = 0;
-      deck.percentage = 0;
       this.deckService.createDeck(deck).subscribe(response => {
         if (response.isSuccessful) {
           this.isError = false;
           this.decks.push(response.data);
+
           this.getDecks();
+
           Swal.fire(
             'Kayıt Başarılı',
             'Deste başarılı bir şekilde oluşturuldu!',
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
             'error'
           )
         }
+        this.loader.setLoading(false);
       });
     } else {
       this.message = "Deste adı boş olamaz."
