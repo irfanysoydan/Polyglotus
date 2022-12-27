@@ -25,7 +25,7 @@ class CardController {
       await services.card.updateMeaning(cardBack.id, cardFront.id);
 
       const cards = { front: cardFront, back: cardBack };
-      res
+      return res
         .status(HttpStatusCodes.CREATED)
         .json(ServiceResponse.successWithData(cards, HttpStatusCodes.CREATED));
     } catch (error) {
@@ -36,7 +36,7 @@ class CardController {
   getCardById = async (req, res, next) => {
     try {
       const card = await services.card.getById(req.params.id);
-      res
+      return res
         .status(HttpStatusCodes.OK)
         .json(
           ServiceResponse.successWithData(
@@ -56,7 +56,7 @@ class CardController {
       );
 
       const cardsData = { count: count / 2, cards: rows };
-      res
+      return res
         .status(HttpStatusCodes.OK)
         .json(ServiceResponse.successWithData(cardsData, HttpStatusCodes.OK));
     } catch (error) {
@@ -77,7 +77,7 @@ class CardController {
               "Böyle bir kart bulunamadı."
             )
           );
-      res
+      return res
         .status(HttpStatusCodes.OK)
         .json(ServiceResponse.successWithData(response, HttpStatusCodes.OK));
     } catch (error) {
@@ -101,7 +101,7 @@ class CardController {
               "Böyle bir kart bulunamadı."
             )
           );
-      res
+      return res
         .status(HttpStatusCodes.OK)
         .json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {

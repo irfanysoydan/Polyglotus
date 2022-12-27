@@ -12,6 +12,7 @@ module.exports = {
         email: email,
       },
     });
+
     return user;
   },
 
