@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       let deck: Deck = new Deck();
       deck.name = deckName;
       deck.cardCount = 0;
-      deck.deckPercentage = 0;
+      deck.percentage = 0;
       this.deckService.createDeck(deck).subscribe(response => {
         if (response.isSuccessful) {
           this.isError = false;
@@ -57,16 +57,6 @@ export class HomeComponent implements OnInit {
     this.deckService.getDecks().subscribe(response => {
       if (response.isSuccessful) {
         this.decks = response.data;
-        this.decks.forEach(deck => {
-          deck.cardCount = 0;
-          deck.deckPercentage = 0;
-        });
-        // this.decks.forEach(deck => {
-        //   this.deckInfo.getCardCount(deck);
-        //   this.deckInfo.cardCount.subscribe(x => deck.cardCount = x);
-        //   this.deckInfo.getDeckStatsById(deck.id);
-        //   this.deckInfo.deckStatus.subscribe(x => deck.deckPercentage = x);
-        // })
       } else {
         this.decks = [];
       }
