@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
           Swal.fire(
             'Hata',
             'Deste oluşturulurken hata oluştu!',
-            'warning'
+            'error'
           )
         }
       });
@@ -58,11 +58,15 @@ export class HomeComponent implements OnInit {
       if (response.isSuccessful) {
         this.decks = response.data;
         this.decks.forEach(deck => {
-          this.deckInfo.getCardCount(deck);
-          this.deckInfo.cardCount.subscribe(x => deck.cardCount = x);
-          this.deckInfo.getDeckStatsById(deck.id);
-          this.deckInfo.deckStatus.subscribe(x => deck.deckPercentage = x);
-        })
+          deck.cardCount = 0;
+          deck.deckPercentage = 0;
+        });
+        // this.decks.forEach(deck => {
+        //   this.deckInfo.getCardCount(deck);
+        //   this.deckInfo.cardCount.subscribe(x => deck.cardCount = x);
+        //   this.deckInfo.getDeckStatsById(deck.id);
+        //   this.deckInfo.deckStatus.subscribe(x => deck.deckPercentage = x);
+        // })
       } else {
         this.decks = [];
       }
@@ -71,20 +75,55 @@ export class HomeComponent implements OnInit {
 
   }
   deleteDeck(deckId: number) {
-    if (deckId != null) {
-      this.deckService.deleteDeck(deckId).subscribe(response => {
-        if (response.isSuccessful) {
-          this.isError = false;
-          this.decks = this.decks.filter((deck => deck.id != deckId));
+    Swal.fire({
+      title: "Emin misiniz?",
+      text: "Bu işlem geri alınamaz!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sil",
+      cancelButtonText: "Cancel",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        if (deckId != null) {
+          this.deckService.deleteDeck(deckId).subscribe(response => {
+            if (response.isSuccessful) {
+              this.isError = false;
+              this.decks = this.decks.filter((deck => deck.id != deckId));
+            } else {
+              Swal.fire(
+                'Hata',
+                'Deste silinemedi!',
+                'error'
+              )
+              this.message = "Deste silinemedi."
+              this.isError = true;
+            }
+          });
         } else {
+          Swal.fire(
+            'Hata',
+            'Deste silinemedi!',
+            'error'
+          )
           this.message = "Deste silinemedi."
           this.isError = true;
         }
-      });
-    } else {
-      this.message = "Deste silinemedi."
-      this.isError = true;
-    }
+        Swal.fire(
+          "Silindi!",
+          "Deste silindi.",
+          "success"
+        )
+        // result.dismiss can be "cancel", "overlay",
+        // "close", and "timer"
+      } else if (result.dismiss == Swal.DismissReason.cancel) {
+        Swal.fire(
+          "Cancelled",
+          "Deste Silinmedi :)",
+          "error"
+        )
+      }
+    });
   }
   navigateDetails(deck: Deck) {
     // this.dataService.sendData(deck);

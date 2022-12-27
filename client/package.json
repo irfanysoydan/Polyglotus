@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^15.0.3",
     "@angular/router": "^15.0.3",
     "@sweetalert2/ngx-sweetalert2": "^12.1.0",
+    "@sweetalert2/themes": "^5.0.15",
     "crypto-js": "^4.1.1",
     "rxjs": "~6.6.0",
     "sweetalert": "^2.1.2",
