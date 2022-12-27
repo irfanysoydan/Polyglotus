@@ -19,7 +19,7 @@ class DeckController {
       data.userId = req.user.id;
 
       const deck = await services.deck.create(data);
-      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(deck, HttpStatusCodes.CREATED));
+      return res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(deck, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -32,7 +32,7 @@ class DeckController {
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Bu isimde bir deste bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetDeckDto(deck), HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetDeckDto(deck), HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -62,7 +62,7 @@ class DeckController {
       });
       console.log(decks);
 
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(decks, HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(decks, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -75,7 +75,7 @@ class DeckController {
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Böyle bir deste bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -105,7 +105,7 @@ class DeckController {
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Bu isimde bir deste bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(data, HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(data, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }

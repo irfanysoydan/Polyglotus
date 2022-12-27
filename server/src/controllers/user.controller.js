@@ -11,7 +11,7 @@ class UserController {
     try {
       if (req.user.id == id || req.user.isAdmin === true) {
         const user = await services.user.getById(id);
-        res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetUserDto(user), HttpStatusCodes.OK));
+        return res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(new GetUserDto(user), HttpStatusCodes.OK));
       } else {
         return res
           .status(HttpStatusCodes.NOT_FOUND)
@@ -25,7 +25,7 @@ class UserController {
   getAllUsers = async (req, res, next) => {
     try {
       const users = await services.user.getAll();
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(users, HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(users, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -35,7 +35,7 @@ class UserController {
     try {
       await services.user.updateUserRole(req.body.isAdmin, req.params.id);
 
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }
@@ -49,7 +49,7 @@ class UserController {
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/users/", "Böyle bir kullanıcı bulunamadı."));
-      res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+      return res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
     }

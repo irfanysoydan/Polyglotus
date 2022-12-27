@@ -25,7 +25,7 @@ class AuthController {
       const userData = new CreateUserDto(req.body);
 
       const user = await services.user.create(userData);
-      res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(user, HttpStatusCodes.CREATED));
+      return res.status(HttpStatusCodes.CREATED).json(ServiceResponse.successWithData(user, HttpStatusCodes.CREATED));
     } catch (error) {
       next(error);
     }
@@ -35,7 +35,11 @@ class AuthController {
     const email = req.body.email;
     try {
       const user = await services.user.getByEmail(email);
-      if (!user) return next(createError(404, "Mail adresiniz yanlış"));
+
+      if (!user)
+        return res
+          .status(HttpStatusCodes.OK)
+          .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/login", "Maili yanlış girdiniz."));
       const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
       if (!isPasswordCorrect)
         return res
@@ -43,12 +47,13 @@ class AuthController {
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/auth/login", "Şifreyi yanlış girdiniz."));
 
       const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: "1w" });
+      console.log(token);
       const responseValue = {
         token: token,
         id: user.id,
         isAdmin: user.isAdmin,
       };
-      res.status(200).send(responseValue);
+      return res.status(200).send(responseValue);
     } catch (err) {
       next(err);
     }
@@ -63,7 +68,7 @@ class AuthController {
         const randomString = randomstring.generate();
         await services.user.updateTokenByEmail(randomString, email);
         sendResetPasswordMail(userData.fullName, userData.email, randomString);
-        res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+        return res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
         return res
           .status(HttpStatusCodes.OK)
@@ -87,7 +92,7 @@ class AuthController {
         const password = hash;
         await services.user.updatePasswordById(password, tokenData.id);
         await services.user.deleteTokenData(tokenData.id);
-        res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
+        return res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
         return res
           .status(HttpStatusCodes.OK)

@@ -3,14 +3,12 @@ const db = require("../models");
 const createError = require("http-errors");
 
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
-
-  if (!token) res.status(500).json("Bu işlem için erişim iznin yok");
-
+  const token = req.headers.authorization.split(" ")[1];
+  if (!token) return res.status(500).json("Bu işlem için erişim iznin yok");
   jwt.verify(token, process.env.JWT, (err, user) => {
     if (err) return next(createError(403, "Token doğrulanamadı."));
     req.user = user;
-    next();
+    return next();
   });
 };
 
@@ -42,14 +40,14 @@ const getUpdateAndDeleteCard = (req, res, next) => {
     }
 
     if (deck && req.user.id === deck.userId) next();
-    else return next(createError(403, "Böyle bir kart bulunamadı"));
+    else next(createError(403, "Böyle bir kart bulunamadı"));
   });
 };
 
 const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.isAdmin) next();
-    else return next(createError(403, "Bu işlem yalnızca sistem admini tarafından yapılabilir."));
+    else next(createError(403, "Bu işlem yalnızca sistem admini tarafından yapılabilir."));
   });
 };
 
