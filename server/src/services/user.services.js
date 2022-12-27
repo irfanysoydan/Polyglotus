@@ -30,6 +30,9 @@ module.exports = {
   updatePasswordById: async (password, id) => {
     await db.User.update({ password: password }, { where: { id: id } });
   },
+  deleteTokenData: async (id) => {
+    await db.User.update({ token: null }, { where: { id: id } });
+  },
 
   getById: async (id) => {
     const user = await db.User.findOne({
