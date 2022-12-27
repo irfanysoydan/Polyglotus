@@ -20,6 +20,7 @@ module.exports = {
   getAll: async (userId) => {
     const decks = await db.Deck.findAll({
       where: { userId: userId },
+      include: { model: db.Card },
     });
     return decks;
   },

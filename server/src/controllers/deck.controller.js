@@ -45,6 +45,23 @@ class DeckController {
         return res
           .status(HttpStatusCodes.OK)
           .json(ServiceResponse.fail(HttpStatusCodes.NOT_FOUND, "/decks/", "Sisteme kayıtlı deste bulunamadı."));
+
+      decks.forEach((deck) => {
+        let statusCount = 0;
+        const cardLength = deck.Cards.length / 2;
+        deck.dataValues.cardCount = cardLength;
+        deck.Cards.forEach((card) => {
+          if (card.status === true) {
+            statusCount++;
+          }
+        });
+        deck.dataValues.percentage = Math.floor((statusCount / (cardLength * 2)) * 100);
+        if (statusCount === 0) {
+          deck.dataValues.percentage = 0;
+        }
+      });
+      console.log(decks);
+
       res.status(HttpStatusCodes.OK).json(ServiceResponse.successWithData(decks, HttpStatusCodes.OK));
     } catch (error) {
       next(error);
