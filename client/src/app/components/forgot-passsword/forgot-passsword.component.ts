@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forgot-passsword',
@@ -25,7 +26,17 @@ export class ForgotPassswordComponent {
           if (response.isSuccessful) {
             this.isError = false;
             this.isSent = true;
+            Swal.fire(
+              'Gönderildi',
+              'Email başarılı bir şekilde gönderildi!',
+              'success'
+            )
           } else {
+            Swal.fire(
+              'Hata',
+              'Email gönderilirken hata oluştu!',
+              'error'
+            )
             this.message = "Email gönderilemedi."
             this.isError = true;
             this.isSent = false;

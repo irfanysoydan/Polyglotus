@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-renew-password',
@@ -32,9 +33,17 @@ export class RenewPasswordComponent {
         this.token = this.paramsObject.params.token;
         this.authService.resetPassword(pass, this.token).subscribe(response => {
           if (response.isSuccessful) {
+
             this.isSent = true;
           } else {
-            this.message = " Şifre değiştirilemedi"
+            if (response.statusCode == 404) {
+              Swal.fire(
+                'Hata',
+                'Bu şifre değiştirme linki artık geçerli değil!',
+                'error'
+              )
+            }
+            this.message = "Şifre değiştirilemedi"
             this.isError = true;
             this.isSent = false;
           }
