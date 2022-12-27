@@ -79,7 +79,6 @@ class AuthController {
       const token = req.query.token;
 
       const tokenData = await services.user.getByToken(token);
-      console.log(tokenData);
 
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);
@@ -87,6 +86,7 @@ class AuthController {
       if (tokenData) {
         const password = hash;
         await services.user.updatePasswordById(password, tokenData.id);
+        await services.user.deleteTokenData(tokenData.id);
         res.status(HttpStatusCodes.OK).json(ServiceResponse.success(null, HttpStatusCodes.OK));
       } else {
         return res
