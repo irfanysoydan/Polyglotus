@@ -4,7 +4,7 @@ Kart-Deste Mantığı İle Bilgiler Öğrenin
 
 ## Açıklama
 
-Program içerisinde, arkalı önlü yazı eklenebilen kartlar ile birlikte öğrenmek istediğiniz bilgileri not alarak öğrenebilirsiniz. Kartlarınızı, ona ait bir deste oluşturduktan sonra ekleyebilirsiniz. Eklenen bu kartın ön yüzünde, arka yüzündeki bilgileri anımsatacak bilgiler bulunacaktır. Ön yüzdeki bilgileri gördüğünüzde arka yüzünde ne tarz bir bilgi olduğunu karta tıkladıktan sonra görebilirsiniz. Tıkladıktan sonra tahmin ettiğiniz bilgiyi doğru bildiyseniz "Kolay", yanlış bildiyseniz "Zor" butonuna basabilirsiniz. Kolay seçilen kartlar tekrar sorulmayacaktır. Bu sistemi dilerseniz dil öğrenirken dilerseniz de ezberlemeniz gerken bir bilgi olduğunda kullanabilirsiniz.
+Program içerisinde, arkalı önlü yazı eklenebilen kartlar ile birlikte, öğrenmek istediğiniz bilgileri not alarak öğrenebilirsiniz. Kartlarınızı, ona ait bir deste oluşturduktan sonra ekleyebilirsiniz. Eklenen bu kartın ön yüzünde, arka yüzündeki bilgileri anımsatacak bilgiler bulunacaktır. Ön yüzdeki bilgileri gördüğünüzde arka yüzünde ne tarz bir bilgi olduğunu karta tıkladıktan sonra görebilirsiniz. Tıkladıktan sonra tahmin ettiğiniz bilgiyi doğru bildiyseniz "Kolay", yanlış bildiyseniz "Zor" butonuna basabilirsiniz. Kolay seçilen kartlar tekrar sorulmayacaktır. Bu sistemi dilerseniz dil öğrenirken dilerseniz de ezberlemeniz gereken bir bilgi olduğunda kullanabilirsiniz.
 
 ## Başlarken
 
