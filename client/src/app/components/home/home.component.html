@@ -1,10 +1,17 @@
 <div class="home">
-  <app-error *ngIf="isError" [message]="message"></app-error>
-  <div class="create-deck">
-    <input type="text" placeholder="Deste Adı" #deckname />
-    <button (click)="AddDeck(deckname.value)">Deste Oluştur</button>
-  </div>
   <div class="list">
+    <div class="g-box-container deck create-deck">
+      <div class="deck-head">
+        <h3>Deste Oluştur</h3>
+      </div>
+      <div class="deck-body">
+        <input type="text" placeholder="Deste Adı" #deckname />
+      </div>
+      <div class="deck-footer">
+        <button (click)="AddDeck(deckname.value)">Deste Oluştur</button>
+      </div>
+    </div>
+
     <div *ngFor="let deck of decks" class="g-box-container deck">
       <div
         [routerLink]="'work-deck'"
@@ -12,7 +19,9 @@
         class="container"
       >
         <div class="deck-head">
-          <h3>{{ deck.name }}</h3>
+          <h3>
+            {{ deck.name }}
+          </h3>
         </div>
         <div class="deck-body">
           <p>{{ deck.cardCount }} Kart içeriyor</p>
