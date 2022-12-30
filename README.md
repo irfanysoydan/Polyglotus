@@ -1,6 +1,6 @@
 # Proje Başlığı
 
-Kart-Deste Mantığı Bilgiler Öğrenin
+Kart-Deste Mantığı İle Bilgiler Öğrenin
 
 ## Açıklama
 
