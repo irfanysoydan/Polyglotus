@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Deck } from 'src/app/models/deck.model';
 import { DeckInfoService } from 'src/app/services/deck-info/deck-info.service';
@@ -15,12 +15,13 @@ export class HomeComponent implements OnInit {
   decks: Deck[] = [];
   isError: boolean = false;
   message: string = "";
+
   constructor(private deckService: DeckService, private deckInfo: DeckInfoService, private loader: LoaderService, private router: Router, private dataService: DataService<Deck>) { }
 
   ngOnInit(): void {
     this.getDecks();
-
   }
+
   AddDeck(deckName: string) {
     this.loader.setLoading(true);
     if (deckName.trim() != '') {
@@ -30,9 +31,7 @@ export class HomeComponent implements OnInit {
         if (response.isSuccessful) {
           this.isError = false;
           this.decks.push(response.data);
-
-          this.getDecks();
-
+          //this.getDecks();
           Swal.fire(
             'Kayıt Başarılı',
             'Deste başarılı bir şekilde oluşturuldu!',
@@ -50,8 +49,12 @@ export class HomeComponent implements OnInit {
         this.loader.setLoading(false);
       });
     } else {
-      this.message = "Deste adı boş olamaz."
-      this.isError = true;
+      this.loader.setLoading(false);
+      Swal.fire(
+        'Hata',
+        'Deste adı boş olamaz!',
+        'error'
+      )
     }
   }
   getDecks() {

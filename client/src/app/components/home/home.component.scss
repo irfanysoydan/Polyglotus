@@ -7,24 +7,37 @@
   justify-content: space-between;
   align-items: flex-start;
   text-align: center;
-  .exception {
-    color: $red;
-    width: 100%;
-  }
   .create-deck {
     width: 100%;
     display: flex;
     align-content: center;
-    input[type="text"] {
-      margin-right: 5%;
+    .deck-head {
+      margin-top: 30px;
+      color: $blue_p;
     }
-    button {
-      width: 20%;
+    .deck-body {
+      margin-top: 10px;
+      margin-left: 0;
+      :last-child {
+        margin-top: 20px;
+      }
+      input[type="text"] {
+        margin-right: 5%;
+      }
+    }
+    .deck-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      button {
+        width: 80% !important;
+        box-shadow: unset;
+      }
     }
   }
   .list {
     width: 100%;
-    margin: 126px auto;
+    margin: auto;
     display: flex;
     align-items: flex-start;
     align-content: center;
@@ -44,6 +57,14 @@
         .deck-head {
           margin-top: 30px;
           color: $blue_p;
+          h3 {
+            display: inline-block;
+            width: 180px;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+            transition: none !important;
+          }
         }
         .deck-body {
           margin-top: 50px;
@@ -59,6 +80,7 @@
         justify-content: space-around;
         button {
           width: 45%;
+          margin-bottom: 10px;
           box-shadow: unset;
         }
         :last-child {
