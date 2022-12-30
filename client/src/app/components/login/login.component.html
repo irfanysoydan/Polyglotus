@@ -3,13 +3,8 @@
     <h2>Giriş Yap</h2>
     <app-error *ngIf="isError" [message]="message"></app-error>
     <div class="inputs">
-      <input
-        type="text"
-        placeholder="Email"
-        #email
-        value="omerozoglu.1@gmail.com"
-      />
-      <input type="password" placeholder="Password" #pass value="12345678" />
+      <input type="text" placeholder="Email" #email />
+      <input type="password" placeholder="Password" #pass />
     </div>
 
     <button (click)="login(email.value, pass.value)">Giriş Yap</button>
