@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Deck } from 'src/app/models/deck.model';
-import { DeckInfoService } from 'src/app/services/deck-info/deck-info.service';
 import { DeckService } from 'src/app/services/deck.service';
 import { DataService } from 'src/app/services/generic-data-service/data.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -16,7 +15,7 @@ export class HomeComponent implements OnInit {
   isError: boolean = false;
   message: string = "";
 
-  constructor(private deckService: DeckService, private deckInfo: DeckInfoService, private loader: LoaderService, private router: Router, private dataService: DataService<Deck>) { }
+  constructor(private deckService: DeckService, private loader: LoaderService, private router: Router, private dataService: DataService<Deck>) { }
 
   ngOnInit(): void {
     this.getDecks();
