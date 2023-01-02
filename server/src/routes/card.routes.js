@@ -5,10 +5,10 @@ const CardRouter = require("express").Router();
 
 CardRouter.post(
   "/",
-  check("front.word", "Kelimenizin uzunluğu en fazla 20 karakter içermelidir").isLength({ max: 20 }),
-  check("front.description", "Açıklamanız en fazla 100 karakter içermelidir.").isLength({ max: 100 }),
-  check("back.word", "Kelimenizin uzunluğu en fazla 20 karakter içermelidir").isLength({ max: 20 }),
-  check("back.description", "Açıklamanız en fazla 100 karakter içermelidir.").isLength({ max: 100 }),
+  check("front.word", "Kelimenizin uzunluğu en fazla 20 karakter içermelidir").isLength({ max: 50 }),
+  check("front.description", "Açıklamanız en fazla 100 karakter içermelidir.").isLength({ max: 2550 }),
+  check("back.word", "Kelimenizin uzunluğu en fazla 20 karakter içermelidir").isLength({ max: 50 }),
+  check("back.description", "Açıklamanız en fazla 100 karakter içermelidir.").isLength({ max: 250 }),
 
   createAndGetAllCard,
   CardController.createCard
