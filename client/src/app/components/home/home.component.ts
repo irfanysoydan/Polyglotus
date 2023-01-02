@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
         if (response.isSuccessful) {
           this.isError = false;
           this.decks.push(response.data);
-          //this.getDecks();
+          this.getDecks();
           Swal.fire(
             'Kayıt Başarılı',
             'Deste başarılı bir şekilde oluşturuldu!',

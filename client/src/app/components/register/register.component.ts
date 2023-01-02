@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -47,8 +48,18 @@ export class RegisterComponent implements OnInit {
         user.password = pass;
         this.authService.registerUser(user).subscribe(response => {
           if (response.isSuccessful) {
+            Swal.fire(
+              'Kayıt Başarılı',
+              'Başarılı bir şekilde kayıt olundu!',
+              'success'
+            )
             this.router.navigate(['/login']);
           } else {
+            Swal.fire(
+              'Hata',
+              'Kayıt olurken hata oluştu!',
+              'error'
+            )
             this.message = "Kayıt olma başarısız."
             this.isError = true;
           }
