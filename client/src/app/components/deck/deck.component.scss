@@ -11,8 +11,10 @@
     width: 100%;
     display: flex;
     align-content: center;
-    input[type="text"] {
-      margin-right: 5%;
+    justify-content: space-between;
+    h2 {
+      width: 100%;
+      color: $blue_p;
     }
     button {
       width: 20%;

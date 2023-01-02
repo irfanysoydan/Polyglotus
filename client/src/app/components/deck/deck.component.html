@@ -1,10 +1,11 @@
 <div class="deck-detail">
   <app-error *ngIf="isError" [message]="message"></app-error>
   <div class="update-deck">
-    <input type="text" [value]="deckInfo.name" />
-    <button [swal]="['Oops!', 'Yapım aşamasında :/', 'warning']">
+    <h2>{{ deckInfo.name }}</h2>
+    <!-- <input type="text" [value]="deckInfo.name" /> -->
+    <!-- <button [swal]="['Oops!', 'Yapım aşamasında :/', 'warning']">
       Güncelle
-    </button>
+    </button> -->
   </div>
   <div class="deck-title">
     <h4>Kartlar</h4>
